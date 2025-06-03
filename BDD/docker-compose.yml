@@ -1,0 +1,17 @@
+
+services:
+
+  adminer:
+    image: adminer
+    restart: always
+    ports:
+      - 8080:8080
+
+  mariadb:
+    image: mariadb
+    ports:
+      - 3306:3306
+    restart: always
+    environment:
+      MARIADB_ROOT_PASSWORD: root
+      MARIADB_DATABASE: posthit
