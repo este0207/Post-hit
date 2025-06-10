@@ -1,3 +1,5 @@
+import { ProductSize } from "./productsize.model.js";
+
 export class ProductModel{
     constructor(clientSQL){
         this.client = clientSQL;
@@ -14,6 +16,11 @@ export class ProductModel{
     async getAllProducts(){
         const [products] = await this.client.execute(`SELECT * FROM product`).catch(console.error);
         return products;
+    }
+
+    async getProductSize(){
+        const productSize = new ProductSize(this.client);
+        return await productSize.getAllSizes();
     }
 
     async addProduct(product_name,product_price,product_theme,product_desc){

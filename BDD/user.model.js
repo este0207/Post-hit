@@ -1,3 +1,4 @@
+import bcrypt from 'bcrypt'
 export class User{
     constructor(clientSQL){
         this.client = clientSQL;
@@ -50,13 +51,29 @@ export class User{
         return users;
     }
 
-    async login(email, password) {
+    async login(email, formpassword) {
         try {
+            // Récupérer l'utilisateur avec son mot de passe hashé
             const [users] = await this.client.execute(
-                'SELECT id, username, email FROM user WHERE email = ? AND password = ?',
-                [email, password]
+                'SELECT id, username, email, password FROM user WHERE email = ?',
+                [email]
             );
-            return users[0] || null;
+
+            if (users.length === 0) {
+                return null;
+            }
+
+            const user = users[0];
+            // Comparer le mot de passe fourni avec le hash stocké
+            const isPasswordValid = await bcrypt.compare(formpassword, user.password);
+
+            if (!isPasswordValid) {
+                return null;
+            }
+
+            // Ne pas renvoyer le mot de passe dans la réponse
+            const { password, ...userWithoutPassword } = user;
+            return userWithoutPassword;
         } catch (error) {
             throw error;
         }
@@ -67,6 +84,18 @@ export class User{
             const [users] = await this.client.execute(
                 'SELECT id, username, email FROM user WHERE id = ?',
                 [id]
+            );
+            return users[0] || null;
+        } catch (error) {
+            throw error;
+        }
+    }
+
+    async getUserByEmail(email) {
+        try {
+            const [users] = await this.client.execute(
+                'SELECT id, username, email FROM user WHERE email = ?',
+                [email]
             );
             return users[0] || null;
         } catch (error) {
@@ -99,5 +128,14 @@ export class User{
         } catch (error) {
             throw error;
         }
+    }
+    async test(){ // test
+        let [test] = await this.client.execute(`
+            SELECT Orders.id, Customers.name, Orders.email
+            FROM Orders
+            INNER JOIN Customers ON Orders.CustomerID=Customers.CustomerID;
+
+        `)
+        console.log(test)
     }
 }
