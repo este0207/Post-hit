@@ -1,1 +1,17 @@
 /* You can add global styles to this file, and also import other style files */
+@font-face {
+    font-family: "Asap";
+    src: 
+    local("Asap"),
+    url("/font/Asap/Asap-Italic-VariableFont_wdth,wght.ttf") format("TrueType"),
+    url("/font/Asap/Asap-VariableFont_wdth,wght.ttf") format("TrueType");
+}
+
+*{
+    margin: 0;
+    padding: 0;
+}
+
+body{
+    font-family: "Asap";
+}
