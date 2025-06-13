@@ -10,6 +10,7 @@
   border-radius: 20px;
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.232);
   transition: 0.5s;
+  font-size: 20px;
 }
 
 .nav.active{
@@ -43,4 +44,8 @@
   font-size: 20px;
 }
 
+.icons{
+  display: flex;
+  gap: 20px;
+}
 

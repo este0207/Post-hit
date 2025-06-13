@@ -33,9 +33,18 @@ async function main(){
     const productModel = new ProductModel(client);
     // const cartModel = new Cart(client);
 
-
     const server = express();
-    server.use(cors(), express.json());
+    
+    // Configuration CORS
+    const corsOptions = {
+        origin: 'http://localhost:4200', // L'URL de votre frontend Angular
+        credentials: false, // Si vous utilisez des cookies ou l'authentification
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization']
+    };
+    
+    server.use(cors(corsOptions));
+    server.use(express.json());
 
     server.get("/",(req,res)=>{
         res.send("Bienvenue dans l'api")

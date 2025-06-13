@@ -1,0 +1,113 @@
+<div class="formcontainer">
+    <div class="form-flipper" #flipper [class.flipped]="isFlipped">
+        <div class="form-front">
+            <form class="auth-form" (ngSubmit)="onLoginSubmit()">
+                <h2>Connexion</h2>
+                
+                <div class="form-group">
+                    <label for="login-email">Email</label>
+                    <input 
+                        type="email" 
+                        id="login-email" 
+                        name="email" 
+                        [(ngModel)]="loginForm.email"
+                        placeholder="Entrez votre email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="login-password">Mot de passe</label>
+                    <input 
+                        type="password" 
+                        id="login-password" 
+                        name="password" 
+                        [(ngModel)]="loginForm.password"
+                        placeholder="Entrez votre mot de passe"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn">Se connecter</button>
+                
+                <div class="form-footer">
+                    <p>Pas encore de compte ? <a href="#" class="flip-btn" (click)="flipCard('back'); $event.preventDefault()">S'inscrire</a></p>
+                </div>
+
+                <div *ngIf="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </div>
+                <div *ngIf="successMessage" class="success-message">
+                    {{ successMessage }}
+                </div>
+            </form>
+        </div>
+
+        <div class="form-back">
+            <form class="auth-form" (ngSubmit)="onRegisterSubmit()">
+                <h2>Inscription</h2>
+                
+                <div class="form-group">
+                    <label for="register-username">Nom d'utilisateur</label>
+                    <input 
+                        type="text" 
+                        id="register-username" 
+                        name="username" 
+                        [(ngModel)]="registerForm.username"
+                        placeholder="Choisissez un nom d'utilisateur"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="register-email">Email</label>
+                    <input 
+                        type="email" 
+                        id="register-email" 
+                        name="email" 
+                        [(ngModel)]="registerForm.email"
+                        placeholder="Entrez votre email"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="register-password">Mot de passe</label>
+                    <input 
+                        type="password" 
+                        id="register-password" 
+                        name="password" 
+                        [(ngModel)]="registerForm.password"
+                        placeholder="Choisissez un mot de passe"
+                        required
+                    >
+                </div>
+
+                <div class="form-group">
+                    <label for="register-confirm-password">Confirmer le mot de passe</label>
+                    <input 
+                        type="password" 
+                        id="register-confirm-password" 
+                        name="confirmPassword" 
+                        [(ngModel)]="registerForm.confirmPassword"
+                        placeholder="Confirmez votre mot de passe"
+                        required
+                    >
+                </div>
+
+                <button type="submit" class="submit-btn">S'inscrire</button>
+                
+                <div class="form-footer">
+                    <p>Déjà un compte ? <a href="#" class="flip-btn" (click)="flipCard('front'); $event.preventDefault()">Se connecter</a></p>
+                </div>
+
+                <div *ngIf="errorMessage" class="error-message">
+                    {{ errorMessage }}
+                </div>
+                <div *ngIf="successMessage" class="success-message">
+                    {{ successMessage }}
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
