@@ -2,6 +2,7 @@
     <div class="form-flipper" #flipper [class.flipped]="isFlipped">
         <div class="form-front">
             <form class="auth-form" (ngSubmit)="onLoginSubmit()">
+                <p (click)="closeForm()"><-</p>
                 <h2>Connexion</h2>
                 
                 <div class="form-group">

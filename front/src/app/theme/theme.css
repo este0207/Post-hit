@@ -7,6 +7,12 @@
     overflow-x: scroll;
     border-radius: 20px;
     margin: 5px 10px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.themecontainer.active{
+    opacity: 1;
 }
 
 .theme{

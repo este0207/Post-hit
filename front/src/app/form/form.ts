@@ -12,6 +12,14 @@ import { Router } from '@angular/router';
   styleUrl: './form.css'
 })
 export class Form implements OnInit {
+
+  closeForm(){
+    const formcontainer = document.querySelector(".formcontainer") as HTMLElement;
+    if (formcontainer) {
+      formcontainer.classList.remove("active");
+    }
+  }
+
   @ViewChild('flipper') flipper!: ElementRef;
   isFlipped: boolean = false;
 

@@ -1,0 +1,44 @@
+.likesproductsContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    gap: 1rem;
+    padding: 0 2rem;
+    min-height: 100vh;
+    place-items: center;
+    background-color: antiquewhite;
+    margin: 0 10px;
+    border-radius: 20px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.likesproductsContainer.active{
+    opacity: 1;
+}
+
+.ProducDiv{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    max-width: 400px;
+    height: 300px;
+    border-radius: 20px;
+    background-color: aqua;
+    transition: 0.5s;
+    margin: 0 auto;
+}
+
+.ProducDiv:hover{
+    transform: scale(1.05);
+    cursor: pointer;
+}
+
+@media (max-width:679px){
+    .likesproductsContainer{
+        grid-template-columns: 1fr 1fr;
+        padding: 2rem;
+    }
+}

@@ -14,7 +14,7 @@ export interface User {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://localhost:8090'; // Ajustez selon votre configuration
+  private apiUrl = 'http://192.168.10.106:8090'; // Ajustez selon votre configuration
   private userSignal = signal<User | null>(null);
   private usersSignal = signal<User[]>([]);
 

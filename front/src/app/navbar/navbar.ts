@@ -34,7 +34,7 @@ export class Navbar implements OnInit {
     }, 100);
   }
 
-  test(){
+  userForm(){
     const form = document.querySelector(".formcontainer") as HTMLElement;
     if (form) {
       form.classList.toggle("active");

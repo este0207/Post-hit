@@ -18,7 +18,7 @@ if (!process.env.JWT_SECRET_KEY) {
     process.exit(1);
 }
 
-const host = "localhost";
+const host = "192.168.10.106";
 const PORT = "8090";
 
 async function main(){
@@ -40,7 +40,7 @@ async function main(){
     
     // Configuration CORS
     const corsOptions = {
-        origin: 'http://localhost:4200', 
+        origin: 'http://192.168.10.106:4200', 
         credentials: false, 
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization']

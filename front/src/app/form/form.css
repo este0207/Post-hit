@@ -165,3 +165,12 @@
     margin: 10px 0;
     text-align: center;
 }
+
+p{
+    transition: 0.5s;
+}
+
+p:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}

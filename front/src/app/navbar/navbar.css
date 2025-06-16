@@ -12,6 +12,7 @@
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.232);
   transition: 0.5s;
   font-size: 20px;
+  z-index: 300;
 }
 
 .nav.active{
@@ -50,3 +51,8 @@
   gap: 20px;
 }
 
+@media (max-width:679px){
+  .nav{
+    width: 85%;
+  }
+}

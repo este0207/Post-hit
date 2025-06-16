@@ -13,5 +13,8 @@
 }
 
 body{
+    display: flex;
+    flex-direction: column;
     font-family: "Asap";
+    overflow-x: hidden;
 }

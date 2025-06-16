@@ -12,10 +12,17 @@ export class Theme implements OnInit{
 
   ngOnInit(): void {
     this.loadProducts()
+      const themecontainer = document.querySelector(".themecontainer") as HTMLElement;
+      if(themecontainer){
+        setTimeout(() => {
+          themecontainer.classList.add("active");
+        }, 600);
+      }
   }
 
   private loadProducts() {
-    fetch("http://localhost:8090/categories")
+    const host = "192.168.10.106";
+    fetch("http://"+host+":8090/categories")
       .then(res => res.json())
       .then((data) => {
         console.log('Données reçues de l\'API:', data);

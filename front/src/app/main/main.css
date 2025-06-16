@@ -10,7 +10,6 @@
     opacity: 0;
     transition: 0.5s;
     gap: 1%;
-    /* padding: 10px; */
 }
 
 .main.active{
@@ -22,6 +21,10 @@
     justify-content: end;
     height: 100%;
     width: 100%;
+}
+
+.affiche img{
+    width: 95%;
 }
 
 .text{
@@ -39,7 +42,7 @@
 
 @media (max-width:679px){
     .main{
-        flex-direction: column;
+        flex-direction: column-reverse;
         height: 85vh;
     }
 
