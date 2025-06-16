@@ -1,0 +1,14 @@
+button{
+    width: 100%;
+    padding: 10px 20px;
+    border-radius: 20px;
+    border: none;
+    background-color: aliceblue;
+    transition: 0.5s;
+}
+
+button:hover{
+    cursor: pointer;
+    transform: scale(1.1);
+    background-color: rgb(215, 215, 215);
+}

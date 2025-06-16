@@ -8,6 +8,7 @@
   width: 95%;
   padding: 20px;
   border-radius: 20px;
+  background-color: rgba(240, 248, 255, 0.49);
   box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.232);
   transition: 0.5s;
   font-size: 20px;

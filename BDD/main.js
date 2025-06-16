@@ -1,6 +1,7 @@
 import mysql from "mysql2/promise";
 import { User } from "./user.model.js";
 import { ProductModel } from "./product.model.js";
+import { CategorieModel } from "./categorie.model.js";
 import { Cart } from "./cart.model.js";
 import express from "express";
 import cors from "cors";
@@ -31,14 +32,16 @@ async function main(){
 
     const userModel = new User(client);
     const productModel = new ProductModel(client);
+    const categorieModel = new CategorieModel(client);
+
     // const cartModel = new Cart(client);
 
     const server = express();
     
     // Configuration CORS
     const corsOptions = {
-        origin: 'http://localhost:4200', // L'URL de votre frontend Angular
-        credentials: false, // Si vous utilisez des cookies ou l'authentification
+        origin: 'http://localhost:4200', 
+        credentials: false, 
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization']
     };
@@ -48,6 +51,41 @@ async function main(){
 
     server.get("/",(req,res)=>{
         res.send("Bienvenue dans l'api")
+    });
+
+    // --------  Routes Categorie   --------- //
+
+    server.get("/categories", async(req,res)=>{
+        try{
+            const categorie = await categorieModel.getAllCategorie();
+            if (!categorie || categorie.length === 0) {
+                return res.status(404).json("Aucune categorie trouvé");
+            }
+            res.json(categorie);
+            console.log(`GET de ${categorie.length} categorie de Type :`,categorie);
+        }
+        catch(err){
+            console.error(err);
+            res.status(500).json("Erreur interne lors de la récupération des produits");
+        }
+    });
+
+    server.post("/add-categorie", async(req,res)=>{
+        try {
+            const { categorie_name } = req.body;
+            if (!categorie_name) {
+                return res.status(400).json("Données de la categorie incomplètes");
+            }
+            const categorie = await categorieModel.addCategorie(categorie_name);
+            if (!categorie) {
+                return res.status(409).json("Erreur lors de l'ajout de la categorie");
+            }
+            res.status(201).json(categorie);
+            console.log(`Nouvelle categorie ajouté : nom= ${categorie_name}`);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json("Erreur interne lors de l'ajout de la categorie");
+        }
     });
 
     // --------  Routes Produits Supplémentaires  --------- //

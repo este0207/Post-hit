@@ -10,6 +10,7 @@
     top: -150%;
     perspective: 1000px;
     transition: 1s;
+    z-index: 3000;
 }
 
 .formcontainer.active{

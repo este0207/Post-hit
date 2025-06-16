@@ -1,0 +1,26 @@
+.themecontainer{
+    display: flex;
+    background-color: aqua;
+    height: 10rem;
+    gap: 10px;
+    padding: 10px;
+    overflow-x: scroll;
+    border-radius: 20px;
+    margin: 5px 10px;
+}
+
+.theme{
+    display: flex;
+    width: 300px;
+    background-color: aliceblue;
+    border-radius: 20px;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    transition: 0.5s;
+}
+
+.theme:hover{
+    transform: scale(1.1);
+    cursor: pointer;
+}
