@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-product-page',
@@ -15,10 +16,12 @@ export class ProductPage implements OnInit {
 
 
   private loadProducts() {
-    fetch("http://localhost:8090/product/10")
+    const apiURL = environment.apiURL;
+    
+    fetch(apiURL + "/product/10")
       .then(res => res.json())
       .then((data) => {
-        console.log('Données reçues ekznfek de l\'API:', data);
+        console.log('Données reçues de l\'API:', data);
 
         const productName = document.querySelector('.productName') as HTMLElement;
         const productPrice = document.querySelector('.productPrice') as HTMLElement;
@@ -30,6 +33,8 @@ export class ProductPage implements OnInit {
 
         
     })
-
+    .catch(error => {
+      console.error('Erreur lors du chargement du produit:', error);
+    });
 }
 }

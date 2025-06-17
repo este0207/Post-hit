@@ -9,16 +9,14 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt"
 
-// Configuration des variables d'environnement
 dotenv.config();
 
-// Vérification de la présence de la clé secrète
 if (!process.env.JWT_SECRET_KEY) {
     console.error("La clé secrète JWT n'est pas définie dans les variables d'environnement");
     process.exit(1);
 }
 
-const host = "192.168.10.106";
+const host = "0.0.0.0";
 const PORT = "8090";
 
 async function main(){
@@ -39,14 +37,14 @@ async function main(){
     const server = express();
     
     // Configuration CORS
-    const corsOptions = {
-        origin: 'http://192.168.10.106:4200', 
-        credentials: false, 
-        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-        allowedHeaders: ['Content-Type', 'Authorization']
-    };
+    // const corsOptions = {
+    //     origin: ['*'], 
+    //     credentials: false, 
+    //     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    //     allowedHeaders: ['Content-Type', 'Authorization']
+    // };
     
-    server.use(cors(corsOptions));
+    server.use(cors());
     server.use(express.json());
 
     server.get("/",(req,res)=>{

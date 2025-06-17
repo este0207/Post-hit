@@ -1,4 +1,5 @@
 import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { environment } from '../../environments/environment';
 
 @Component({
   selector: 'app-theme',
@@ -21,8 +22,9 @@ export class Theme implements OnInit{
   }
 
   private loadProducts() {
-    const host = "192.168.10.106";
-    fetch("http://"+host+":8090/categories")
+    const apiURL = environment.apiURL;
+
+    fetch(apiURL + "/categories")
       .then(res => res.json())
       .then((data) => {
         console.log('Données reçues de l\'API:', data);

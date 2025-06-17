@@ -1,6 +1,7 @@
 import { Injectable, signal } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, tap, map } from 'rxjs';
+import { environment } from '../environments/environment';
 
 export interface User {
   id?: number;
@@ -14,7 +15,7 @@ export interface User {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = 'http://192.168.10.106:8090'; // Ajustez selon votre configuration
+  private apiUrl = environment.apiURL; // Ajustez selon votre configuration
   private userSignal = signal<User | null>(null);
   private usersSignal = signal<User[]>([]);
 
