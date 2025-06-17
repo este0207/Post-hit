@@ -3,11 +3,12 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService, User } from '../user-service';
 import { Router } from '@angular/router';
+import { ReturnBtn } from "../return-btn/return-btn";
 
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, ReturnBtn],
   templateUrl: './form.html',
   styleUrl: './form.css'
 })

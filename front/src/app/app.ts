@@ -10,7 +10,7 @@ import { BurgerMenu } from "./burger-menu/burger-menu";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Main, Form, Theme, LikestProduct, BurgerMenu],
+  imports: [RouterOutlet, Navbar, Main, Form, Theme, LikestProduct, BurgerMenu, ProductPage],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })
