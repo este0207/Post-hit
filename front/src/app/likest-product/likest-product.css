@@ -1,10 +1,10 @@
 .likesproductsContainer{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     justify-content: center;
     align-items: center;
-    gap: 1rem;
-    padding: 0 2rem;
+    /* gap: 0.5rem; */
+    padding: 2rem;
     min-height: 100vh;
     place-items: center;
     background-color: antiquewhite;
@@ -20,20 +20,40 @@
 
 .ProducDiv{
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
-    width: 100%;
+    width: 10rem;
     max-width: 400px;
     height: 300px;
     border-radius: 20px;
-    background-color: aqua;
     transition: 0.5s;
-    margin: 0 auto;
+    margin: 10px;
+    background-color: white;
+    padding: 10px;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
 .ProducDiv:hover{
     transform: scale(1.05);
     cursor: pointer;
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+}
+
+.product-image {
+    width: 100%;
+    height: 200px;
+    object-fit:contain;
+    border-radius: 10px;
+    margin-bottom: 1rem;
+}
+
+.product-name {
+    font-size: 1.1rem;
+    font-weight: bold;
+    text-align: center;
+    color: #333;
+    margin: 0;
 }
 
 @media (max-width:679px){

@@ -9,6 +9,6 @@ import { Component, input } from '@angular/core';
 export class Link {
 
   link_url = input("#");
-  link_text = input("defaul link");
+  link_text = input("");
   link_icon = input("");
 }

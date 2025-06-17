@@ -1,6 +1,6 @@
 .themecontainer{
     display: flex;
-    background-color: aqua;
+    /* background-color: aqua; */
     height: 10rem;
     gap: 10px;
     padding: 10px;
@@ -17,13 +17,14 @@
 
 .theme{
     display: flex;
-    width: 300px;
-    background-color: aliceblue;
+    width: 200px;
+    background-color: rgb(255, 245, 226);
     border-radius: 20px;
     align-items: center;
     justify-content: center;
     text-align: center;
     transition: 0.5s;
+    aspect-ratio: 1/1;
 }
 
 .theme:hover{

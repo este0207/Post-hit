@@ -1,0 +1,39 @@
+.burgerMenu{
+    display: flex;
+    position: absolute;
+    z-index: 100;
+    background-color: rgb(255, 255, 255);
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 10px;
+    height: 150px;
+    top: 15%;
+    right: -100%;
+    border-radius: 20px;
+    transition: 0.5s;
+    box-shadow: 5px 5px 5px rgba(0, 0, 0, 0.232);
+}
+
+.burgerMenu.active{
+    right: 15px;
+}
+
+ul{
+    display: flex;
+    flex-direction: column;
+    list-style-type: none;
+    gap: 10px;
+}
+
+ul *:hover{
+    background-color: rgb(32, 120, 90);
+}
+
+@media (max-width:679px){
+    .burgerMenu{
+        width: 30%;
+    }
+
+
+}

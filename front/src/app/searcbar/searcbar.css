@@ -1,8 +1,24 @@
-input{
+.searchbar{
     border-radius: 10px;
     border: 1px solid black;
     padding-left: 10px;
-    width: 100%;
+    width: 0px;
     height: 25px;
-    
+    opacity: 0;
+    transition: 1s;
   }
+
+.searchbar:hover{
+  cursor: default;
+}
+
+.searchbar.active{
+  opacity: 1;
+  width: 300px;
+}
+
+@media (max-width:679px){
+  .searchbar.active{
+    width: 100%;
+  }
+}

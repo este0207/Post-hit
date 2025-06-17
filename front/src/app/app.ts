@@ -6,10 +6,11 @@ import { Form } from "./form/form";
 import { Theme } from "./theme/theme";
 import { LikestProduct } from "./likest-product/likest-product";
 import { ProductPage } from "./product-page/product-page";
+import { BurgerMenu } from "./burger-menu/burger-menu";
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Navbar, Main, Form, Theme, LikestProduct, ProductPage],
+  imports: [RouterOutlet, Navbar, Main, Form, Theme, LikestProduct, BurgerMenu],
   templateUrl: './app.html',
   styleUrl: './app.css'
 })

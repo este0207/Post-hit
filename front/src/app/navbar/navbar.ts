@@ -2,11 +2,10 @@ import { Component, input, OnInit, computed, effect } from '@angular/core';
 import { Link } from "../link/link";
 import { Searcbar } from "../searcbar/searcbar";
 import { UserService } from '../user-service';
-import { Form } from '../form/form';
 
 @Component({
   selector: 'app-navbar',
-  imports: [Link, Searcbar, Form],
+  imports: [Link, Searcbar],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
@@ -38,6 +37,20 @@ export class Navbar implements OnInit {
     const form = document.querySelector(".formcontainer") as HTMLElement;
     if (form) {
       form.classList.toggle("active");
+    }
+  }
+
+  useSearch(){
+    const input = document.querySelector(".searchbar") as HTMLElement;
+    if (input) {
+      input.classList.toggle("active");
+    }
+  }
+
+  ShowMenu(){
+    const BurgerMenu = document.querySelector(".burgerMenu") as HTMLElement;
+    if (BurgerMenu) {
+      BurgerMenu.classList.toggle("active");
     }
   }
 }

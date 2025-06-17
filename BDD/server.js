@@ -8,6 +8,7 @@ import cors from "cors";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt"
+import fileUpload from "express-fileupload";
 
 dotenv.config();
 
@@ -36,19 +37,30 @@ async function main(){
 
     const server = express();
     
-    // Configuration CORS
-    // const corsOptions = {
-    //     origin: ['*'], 
-    //     credentials: false, 
-    //     methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-    //     allowedHeaders: ['Content-Type', 'Authorization']
-    // };
+    // Configuration CORS plus détaillée
+    server.use(cors({
+        origin: true, // Permet toutes les origines
+        credentials: true,
+        methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+        allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
+    }));
     
-    server.use(cors());
     server.use(express.json());
+    server.use(express.static("public"));
+    server.use(fileUpload());
 
     server.get("/",(req,res)=>{
         res.send("Bienvenue dans l'api")
+    });
+
+    // Route spécifique pour les images
+    server.get("/images/:filename", (req, res) => {
+        const filename = req.params.filename;
+        res.setHeader('Access-Control-Allow-Origin', '*');
+        res.setHeader('Access-Control-Allow-Methods', 'GET');
+        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
+        res.setHeader('Cache-Control', 'public, max-age=31536000');
+        res.sendFile(`./public/${filename}`, { root: '.' });
     });
 
     // --------  Routes Categorie   --------- //
@@ -422,6 +434,31 @@ async function main(){
             console.error(err);
             res.status(500).json("Erreur interne lors de la récupération du panier");
         }
+    });
+
+    // --------  Upload de fichiers  --------- //
+    
+    server.post("/upload", async (req,res)=>{
+        console.log(req.files)
+        // Le fichier s'appelle "image" à cause du name de la balise <input>
+        // <input type="file" name="image" id="image">
+        const image = req.files.image;  
+        
+        if(image == undefined){
+            res.status(400).json({msg : "No image sent by the client"})
+            return;
+        }
+        // Je forme un nom unique pour le fichier, cette étape n'est pas obligatoire.
+        const extensionFile = image.name.split(".")[1];
+        const fileName = image.name.split(".")[0];
+        const completeFileName = `${fileName}_${Date.now()}.${extensionFile}`;
+
+        // J'utilise la fonction mv() pour uploader le fichier
+        // dans le dossier /public du répertoire courant
+        image.mv(`${__dirname}/public/${completeFileName}`);
+
+        // Je renvoi l'url final au client
+        res.json({url : `http://${host}:${PORT}/${completeFileName}`});
     });
 
     // --------  Server listen  --------- //

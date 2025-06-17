@@ -15,7 +15,7 @@ export interface User {
   providedIn: 'root'
 })
 export class UserService {
-  private apiUrl = environment.apiURL; // Ajustez selon votre configuration
+  private apiUrl = environment.apiURL; 
   private userSignal = signal<User | null>(null);
   private usersSignal = signal<User[]>([]);
 

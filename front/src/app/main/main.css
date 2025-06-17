@@ -48,12 +48,14 @@
 
     .affiche{
         justify-content: center;
-        border-top: 1px solid black;
-
+        
     }
-
+    
     .text{
-        width: 100%;
+        border-top: 1px solid black;
+        width: 95%;
+        /* margin-right: 20px; */
+        margin: 0;
     }
 
 

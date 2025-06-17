@@ -37,9 +37,23 @@ export class LikestProduct implements OnInit{
          const ProductDiv = document.createElement('div');
          ProductDiv.className = 'ProducDiv';
           
+          // Créer l'image du produit
+          const productImage = document.createElement('img');
+          productImage.crossOrigin = 'anonymous';
+          productImage.src = element.product_name ? `${apiURL}/images/${element.product_name}${environment.format}` : `${apiURL}/images/placeholder${environment.format}`;
+          productImage.alt = element.product_name || 'Produit';
+          productImage.className = 'product-image';
+          
+          // Gestion d'erreur pour les images
+          productImage.onerror = () => {
+            productImage.src = `${apiURL}/placeholder.png`;
+          };
+          
           const paragraph = document.createElement('p');
           paragraph.innerText = element.product_name || 'Sans nom';
+          paragraph.className = 'product-name';
           
+          ProductDiv.appendChild(productImage);
           ProductDiv.appendChild(paragraph);
           likesproductsContainer.appendChild(ProductDiv);
 

@@ -1,9 +1,28 @@
 a{
+  display: flex;
     color: black;
+    justify-content: center;
+    align-items: center;
     text-decoration: none;
     transition: 0.5s;
 }
 
 a:hover{
   transform: scale(1.1);
+}
+
+.Shop li{
+  font-size: 15px;
+}
+
+@media (max-width:679px){
+  li{
+    font-size: 20px;
+    font-weight: normal;
+  }
+
+  a{
+    gap: 10px;
+  }
+
 }
