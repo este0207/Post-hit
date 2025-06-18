@@ -1,32 +1,61 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewEncapsulation } from '@angular/core';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
 import { environment } from '../../environments/environment';
-import { ProductPage } from "../product-page/product-page";
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-likest-product',
-  imports: [ProductPage],
+  imports: [CommonModule],
   templateUrl: './likest-product.html',
   styleUrl: './likest-product.css',
   encapsulation: ViewEncapsulation.None
 })
-export class LikestProduct implements OnInit{
+export class LikestProduct implements OnInit, OnDestroy{
+
+  private routerSubscription: Subscription | undefined;
+  isVisible: boolean = true;
+
+  constructor(private router: Router) {}
 
   ngOnInit(): void {
-    this.loadProducts()
-      const likesproductsContainer = document.querySelector(".likesproductsContainer") as HTMLElement;
-      if(likesproductsContainer){
-        setTimeout(() => {
-          likesproductsContainer.classList.add("active");
-        }, 600);
+
+    setTimeout(() => {
+      const likesproductsContainer = document.querySelector('.likesproductsContainer') as HTMLElement;
+      if (likesproductsContainer) {
+        likesproductsContainer.classList.add("active");
       }
+    }, 700);
+
+    // Écouter les changements de route
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.handleRouteChange();
+    });
+
+    this.handleRouteChange();
   }
 
+  ngOnDestroy(): void {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
+    }
+  }
+
+  private handleRouteChange(): void {
+    if (this.router.url === '/FullShop') {
+      this.isVisible = false;
+    } else {
+      this.isVisible = true;
+      this.loadProducts();
+    }
+  }
 
   private loadProducts() {
-
     const apiURL = environment.apiURL;
 
-    fetch(apiURL + "/products")
+    fetch(apiURL + "/bestselling")
       .then(res => res.json())
       .then((data) => {
         console.log('Données reçues de l\'API:', data);
@@ -80,7 +109,7 @@ export class LikestProduct implements OnInit{
   private loadProductDetails(productId: number) {
     const apiURL = environment.apiURL;
     
-    fetch(apiURL + `/product/${productId}`)
+    fetch(apiURL + `/bestselling/${productId}`)
       .then(res => res.json())
       .then((data) => {
         console.log('Détails du produit reçus:', data);
@@ -113,7 +142,7 @@ export class LikestProduct implements OnInit{
     const productImage = document.createElement('img');
     productImage.src = product.product_name ? `${apiURL}/images/${product.product_name}${environment.format}` : `${apiURL}/images/placeholder${environment.format}`;
     productImage.alt = product.product_name+'IMG' || 'ProduitIMG';
-    productImage.className = 'product-image';
+    productImage.className = 'product-image2';
     
     // Gestion d'erreur pour les images
     productImage.onerror = () => {
@@ -131,13 +160,22 @@ export class LikestProduct implements OnInit{
     const productPrice = document.createElement('p');
     productPrice.innerText = product.product_price ? product.product_price+'€' : 'Prix non disponible';
     productPrice.className = 'product-price';
+
+    const BuyBtn = document.createElement('button');
+    BuyBtn.innerText = 'ADD to Cart';
+    BuyBtn.className = 'BuyBtn';
     
     if (ProductImg) ProductImg.appendChild(productImage);
     if (ProductDesc) {
       ProductDesc.appendChild(productTitle);
       ProductDesc.appendChild(productDesc);
       ProductDesc.appendChild(productPrice);
+      ProductDesc.appendChild(BuyBtn);
     }
+
+    BuyBtn.addEventListener('click', ()=>{
+      console.log(product);
+    })
   }
 
 }

@@ -1,6 +1,6 @@
-.likesproductsContainer{
+.fullShop{
     display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr 1fr;
     justify-content: center;
     align-items: center;
     /* gap: 0.5rem; */
@@ -14,12 +14,11 @@
     transition: 0.5s;
 }
 
-.likesproductsContainer.active{
+.fullShop.active{
     opacity: 1;
 }
 
-
-.ProducDiv{
+.ShopProducDiv{
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -35,7 +34,7 @@
     box-shadow: 0 4px 8px rgba(0,0,0,0.1);
 }
 
-.ProducDiv:hover{
+.ShopProducDiv:hover{
     transform: scale(1.05);
     cursor: pointer;
     box-shadow: 0 8px 16px rgba(0,0,0,0.2);
@@ -82,7 +81,7 @@
 }
 
 @media (max-width:679px){
-    .likesproductsContainer{
+    .fullShop{
         grid-template-columns: 1fr 1fr;
         padding: 2rem;
     }

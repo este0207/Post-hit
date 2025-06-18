@@ -9,6 +9,7 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt"
 import fileUpload from "express-fileupload";
+import { BestsellingModel } from "./bestselling.model.js";
 
 dotenv.config();
 
@@ -17,7 +18,7 @@ if (!process.env.JWT_SECRET_KEY) {
     process.exit(1);
 }
 
-const host = "0.0.0.0";
+const host = "192.168.10.108";
 const PORT = "8090";
 
 async function main(){
@@ -31,15 +32,15 @@ async function main(){
 
     const userModel = new User(client);
     const productModel = new ProductModel(client);
+    const bestsellingModel = new BestsellingModel(client);
     const categorieModel = new CategorieModel(client);
 
     // const cartModel = new Cart(client);
 
     const server = express();
     
-    // Configuration CORS plus détaillée
     server.use(cors({
-        origin: true, // Permet toutes les origines
+        origin: true, 
         credentials: true,
         methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
         allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
@@ -61,6 +62,36 @@ async function main(){
         res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
         res.setHeader('Cache-Control', 'public, max-age=31536000');
         res.sendFile(`./public/${filename}`, { root: '.' });
+    });
+
+    // --------  Routes bestselling   --------- //
+
+    server.get("/bestselling",async(req,res)=>{
+        try {
+            const bestselling = await bestsellingModel.getAllBestselling();
+            if (!bestselling || bestselling.length === 0) {
+                return res.status(404).json("Aucun bestselling trouvé");
+            }
+            res.json(bestselling);
+            console.log(`GET de ${bestselling.length} Produits de Type :`,bestselling);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json("Erreur interne lors de la récupération des bestselling");
+        }
+    });
+
+    server.get("/bestselling/:id", async(req, res) => {
+        const { id } = req.params;
+        try {
+            const bestselling = await bestsellingModel.getBestsellingById(id);
+            if (bestselling) {
+                res.json(bestselling);
+            } else {
+                res.status(404).json("bestselling non trouvé");
+            }
+        } catch (error) {
+            res.status(500).json("Erreur lors de la récupération du bestselling");
+        }
     });
 
     // --------  Routes Categorie   --------- //

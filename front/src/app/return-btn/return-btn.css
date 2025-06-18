@@ -12,7 +12,7 @@ button {
     display: flex;
     align-items: center;
     justify-content: center;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    box-shadow: 0 4px 15px rgba(154, 84, 84, 0.2);
     transition: all 0.3s ease;
     color: white;
     font-size: 18px;
@@ -37,7 +37,6 @@ button:hover i {
     transform: translateX(-2px);
 }
 
-/* Responsive design */
 @media (max-width: 768px) {
     button {
         top: 15px;

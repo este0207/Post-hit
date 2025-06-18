@@ -1,4 +1,5 @@
 import { Component, input, OnInit, computed, effect } from '@angular/core';
+import { RouterLink, Router } from '@angular/router';
 import { Link } from "../link/link";
 import { Searcbar } from "../searcbar/searcbar";
 import { UserService } from '../user-service';
@@ -10,7 +11,7 @@ import { UserService } from '../user-service';
   styleUrl: './navbar.css'
 })
 export class Navbar implements OnInit {
-  constructor(private userService: UserService) {
+  constructor(private userService: UserService, private router: Router) {
     effect(() => {
       const user = this.userService.currentUser();
     });
@@ -52,5 +53,9 @@ export class Navbar implements OnInit {
     if (BurgerMenu) {
       BurgerMenu.classList.toggle("active");
     }
+  }
+
+  ViewFullShop(){
+    this.router.navigate(['FullShop']);
   }
 }

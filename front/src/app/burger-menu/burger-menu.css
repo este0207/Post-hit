@@ -26,13 +26,18 @@ ul{
     gap: 10px;
 }
 
+ul *{
+    transition: 0.5s;
+}
+
 ul *:hover{
-    background-color: rgb(32, 120, 90);
+    transform: scale(1.1);
 }
 
 @media (max-width:679px){
     .burgerMenu{
         width: 30%;
+        top: 3%;
     }
 
 

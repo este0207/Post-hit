@@ -10,6 +10,7 @@
 *{
     margin: 0;
     padding: 0;
+    /* border: 1px solid red; */
 }
 
 body{
@@ -18,4 +19,10 @@ body{
     flex-direction: column;
     font-family: "Asap";
     overflow-x:hidden;
+}
+
+@media (max-width:679px){
+    html{
+        overflow-x: hidden;
+    }
 }

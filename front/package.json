@@ -17,6 +17,7 @@
     "@angular/platform-browser": "^20.0.0",
     "@angular/router": "^20.0.0",
     "dotenv": "^16.5.0",
+    "platform-browser-dynamic": "^0.0.1-security",
     "rxjs": "~7.8.0",
     "three": "^0.177.0",
     "tslib": "^2.3.0",

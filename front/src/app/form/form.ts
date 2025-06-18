@@ -8,7 +8,7 @@ import { ReturnBtn } from "../return-btn/return-btn";
 @Component({
   selector: 'app-form',
   standalone: true,
-  imports: [CommonModule, FormsModule, ReturnBtn],
+  imports: [CommonModule, FormsModule],
   templateUrl: './form.html',
   styleUrl: './form.css'
 })

@@ -1,22 +1,57 @@
 import { Component, OnInit} from '@angular/core';
 import { Button } from '../button/button';
+import { Router, NavigationEnd } from '@angular/router';
+import { filter, Subscription } from 'rxjs';
+import { environment } from '../../environments/environment';
+import { CommonModule } from '@angular/common';
 
 
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [Button],
+  imports: [Button, CommonModule],
   templateUrl: './main.html',
   styleUrl: './main.css'
 })
-export class Main{
+export class Main implements OnInit{
+
+  private routerSubscription: Subscription | undefined;
+  isVisible: boolean = true;
+
+  constructor(private router: Router) {}
+
 
   ngOnInit(): void {
-    const main = document.querySelector(".main") as HTMLElement;
-    if(main){
-      setTimeout(() => {
+
+    setTimeout(() => {
+      const main = document.querySelector('.main') as HTMLElement;
+      if (main) {
         main.classList.add("active");
-      }, 600);
+      }
+    }, 700);
+
+
+    this.routerSubscription = this.router.events.pipe(
+      filter(event => event instanceof NavigationEnd)
+    ).subscribe(() => {
+      this.handleRouteChange();
+    });
+
+    this.handleRouteChange();
+  }
+
+  ngOnDestroy(): void {
+    if (this.routerSubscription) {
+      this.routerSubscription.unsubscribe();
     }
   }
+
+  private handleRouteChange(): void {
+    if (this.router.url === '/FullShop') {
+      this.isVisible = false;
+    } else {
+
+      this.isVisible = true;
+    }
+}
 }
