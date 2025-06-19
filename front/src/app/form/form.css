@@ -117,6 +117,16 @@
     text-decoration: underline;
 }
 
+.g_id_signin {
+    min-width: 200px !important;
+    min-height: 50px !important;
+    display: block !important;
+    opacity: 1 !important;
+    visibility: visible !important;
+    background: white !important;
+    z-index: 9999 !important;
+}
+
 @media (max-width: 480px) {
     .auth-form {
         padding: 1.5rem;

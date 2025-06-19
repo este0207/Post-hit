@@ -3,7 +3,7 @@
 ## 🚨 **PRIORITÉ HAUTE - Sécurité & Architecture**
 
 ### 🔐 **Sécurité Backend**
-- **Variables d'environnement** : Créer un fichier `.env` pour stocker les secrets (JWT_SECRET_KEY, DB_PASSWORD, etc.)
+
 - **Validation des données** : Implémenter une validation robuste avec Joi ou express-validator
 - **Rate limiting** : Ajouter des limites de requêtes pour éviter les attaques DDoS
 - **Helmet.js** : Ajouter pour sécuriser les en-têtes HTTP

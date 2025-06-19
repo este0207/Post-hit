@@ -12,9 +12,9 @@ import { UserService } from '../user-service';
 })
 export class Navbar implements OnInit {
   constructor(private userService: UserService, private router: Router) {
-    effect(() => {
-      const user = this.userService.currentUser();
-    });
+    // effect(() => {
+    //   const user = this.userService.currentUser();
+    // });
   }
 
   username = computed(() => {

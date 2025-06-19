@@ -7,7 +7,6 @@ import { Theme } from "./theme/theme";
 import { LikestProduct } from "./likest-product/likest-product";
 import { ProductPage } from "./product-page/product-page";
 import { BurgerMenu } from "./burger-menu/burger-menu";
-import { Shop } from "./shop/shop";
 
 @Component({
   selector: 'app-root',
@@ -16,7 +15,7 @@ import { Shop } from "./shop/shop";
   styleUrl: './app.css'
 })
 export class App implements OnInit{
-  protected title = 'front';
+  protected title = 'PostHit';
 
 
   ngOnInit(): void {

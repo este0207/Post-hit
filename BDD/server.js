@@ -10,6 +10,7 @@ import dotenv from "dotenv";
 import bcrypt from "bcrypt"
 import fileUpload from "express-fileupload";
 import { BestsellingModel } from "./bestselling.model.js";
+import {OAuth2Client} from 'google-auth-library';
 
 dotenv.config();
 
@@ -20,6 +21,9 @@ if (!process.env.JWT_SECRET_KEY) {
 
 const host = "192.168.10.103";
 const PORT = "8090";
+
+const GOOGLE_CLIENT_ID = "220247244335-eu66pg82ffgefo7o235tg2dateq4g4bi.apps.googleusercontent.com";
+const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 async function main(){
     console.log("server listen"+host+"on port:"+PORT);
@@ -490,6 +494,37 @@ async function main(){
 
         // Je renvoi l'url final au client
         res.json({url : `http://${host}:${PORT}/${completeFileName}`});
+    });
+
+    // --------  Authentification Google --------- //
+    server.post("/google-login", async (req, res) => {
+        const { credential } = req.body;
+        if (!credential) {
+            return res.status(400).json({ message: "Token Google manquant" });
+        }
+        try {
+            const ticket = await googleClient.verifyIdToken({
+                idToken: credential,
+                audience: GOOGLE_CLIENT_ID
+            });
+            const payload = ticket.getPayload();
+            // payload contient : email, name, picture, sub (id Google)
+            const email = payload.email;
+            const username = payload.name;
+            // Vérifier si l'utilisateur existe déjà
+            let user = await userModel.getUserByEmail(email);
+            if (!user) {
+                // Créer un nouvel utilisateur (mot de passe vide ou spécial)
+                await userModel.addUser(username, email, "GOOGLE_ACCOUNT");
+                user = await userModel.getUserByEmail(email);
+            }
+            // Générer un JWT local pour la session
+            const token = jwt.sign({ data: user.id }, process.env.JWT_SECRET_KEY, { expiresIn: '7d' });
+            res.json({ message: "Connexion Google réussie", user, token });
+        } catch (err) {
+            console.error(err);
+            res.status(401).json({ message: "Token Google invalide" });
+        }
     });
 
     // --------  Server listen  --------- //

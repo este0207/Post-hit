@@ -2,13 +2,37 @@
 <html lang="fr">
 <head>
   <meta charset="utf-8">
-  <title>Front</title>
+  <title>Post'Hit</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="google-signin-client_id" content="220247244335-eu66pg82ffgefo7o235tg2dateq4g4bi.apps.googleusercontent.com">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css" integrity="sha512-Evv84Mr4kqVGRNSgIGL/F/aIDqQb7xQ2vcrdIwxfjThSH8CSR7PBEakCr51Ck+w+/U6swU2Im1vVX0SVk9ABhg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="post_hit_logo.ico">
 </head>
 <body>
   <app-root></app-root>
+  <!-- Google Identity Services -->
+  <script src="https://accounts.google.com/gsi/client" async defer></script>
+  <script>
+    function handleCredentialResponse(response) {
+      // Tu peux traiter la réponse ici ou dans Angular
+      console.log("Google credential response", response);
+    }
+    window.onload = function() {
+      if (window.google && window.google.accounts && window.google.accounts.id) {
+        window.google.accounts.id.initialize({
+          client_id: "220247244335-eu66pg82ffgefo7o235tg2dateq4g4bi.apps.googleusercontent.com",
+          callback: handleCredentialResponse
+        });
+        document.querySelectorAll('.g_id_signin').forEach(function(el) {
+          window.google.accounts.id.renderButton(
+            el,
+            { theme: "outline", size: "large" }
+          );
+        });
+      }
+    }
+  </script>
+  <!-- <script src="https://apis.google.com/js/platform.js" async defer></script>   -->
 </body>
 </html>

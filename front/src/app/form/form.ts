@@ -5,6 +5,12 @@ import { UserService, User } from '../user-service';
 import { Router } from '@angular/router';
 import { ReturnBtn } from "../return-btn/return-btn";
 
+declare global {
+  interface Window {
+    handleCredentialResponse: (response: any) => void;
+  }
+}
+
 @Component({
   selector: 'app-form',
   standalone: true,
@@ -56,7 +62,11 @@ export class Form implements OnInit {
     });
   }
 
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    window.handleCredentialResponse = (response: any) => {
+      this.onGoogleSignIn(response);
+    };
+  }
 
   flipCard(target: 'front' | 'back'): void {
     this.errorMessage = '';
@@ -132,5 +142,30 @@ export class Form implements OnInit {
         this.errorMessage = error.error?.message || 'Erreur lors de l\'inscription';
       }
     });
+  }
+
+  onGoogleSignIn(response: any) {
+    // response.credential contient le JWT Google
+    this.errorMessage = '';
+    this.successMessage = '';
+    if (!response.credential) {
+      this.errorMessage = 'Erreur Google : token manquant.';
+      return;
+    }
+    this.userService.loginWithGoogle(response.credential)
+      .subscribe({
+        next: () => {
+          this.successMessage = 'Connexion Google réussie !';
+          const form = document.querySelector('.formcontainer') as HTMLElement;
+          setTimeout(() => {
+            if (form) {
+              form.classList.remove('active');
+            }
+          }, 500);
+        },
+        error: (error) => {
+          this.errorMessage = error.error?.message || 'Erreur lors de la connexion Google';
+        }
+      });
   }
 }

@@ -97,4 +97,22 @@ export class UserService {
     localStorage.removeItem('jwt_token');
     this.userSignal.set(null);
   }
+
+  loginWithGoogle(credential: string): Observable<User> {
+    interface GoogleLoginResponse {
+      message: string;
+      user: User;
+      token: string;
+    }
+    return this.http.post<GoogleLoginResponse>(`${this.apiUrl}/google-login`, { credential })
+      .pipe(
+        tap(response => {
+          if (response.token) {
+            localStorage.setItem('jwt_token', response.token);
+          }
+          this.userSignal.set(response.user);
+        }),
+        map(response => response.user)
+      );
+  }
 }
