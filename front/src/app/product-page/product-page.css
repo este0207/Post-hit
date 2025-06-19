@@ -4,12 +4,13 @@
     /* justify-content: center;
     align-items: center; */
     width: 98.6%;
-    height: 85%;
+    height: 45rem;
     right: -130%;
     background-color: #f7f7f7;
     transition: 0.5s;
     margin: 10px;   
     border-radius: 24px;
+    top: 110px;
     z-index: 300;
     box-shadow: 0 8px 32px rgba(0,0,0,0.18);
     overflow: hidden;
@@ -50,16 +51,15 @@
         flex-direction: column;
         justify-content: center;
         align-items: center;
-        min-width: 320px;
-        max-width: 98vw;
-        height: 18.5%;
+        height: 50rem;
         gap: 10px;
+        border: 1px solid red;
+        top: 105px;
         /* padding: 18px 8px; */
-        top: 104px;
     }
 
     .productContainer.active{
-        right: -10px;
+        right: -7.5px;
     }
 
     .ProductImg{

@@ -18,7 +18,7 @@ if (!process.env.JWT_SECRET_KEY) {
     process.exit(1);
 }
 
-const host = "192.168.10.108";
+const host = "192.168.10.103";
 const PORT = "8090";
 
 async function main(){
