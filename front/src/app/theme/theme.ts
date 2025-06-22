@@ -25,8 +25,7 @@ export class Theme implements OnInit{
       this.handleRouteChange();
     });
 
-    this.loadProducts()
-    this.activateContainer()
+    // this.loadProducts()
 
   }
 
@@ -35,8 +34,7 @@ export class Theme implements OnInit{
       this.isVisible = false;
     } else {
       this.isVisible = true;
-      // this.loadProducts()
-      this.activateContainer()
+      this.loadProducts()
     }
 }
 
@@ -51,6 +49,11 @@ private activateContainer(): void {
 
   private loadProducts() {
     const apiURL = environment.apiURL;
+
+    const themecontainer = document.querySelector('.themecontainer') as HTMLElement;
+    if (themecontainer) {
+      themecontainer.innerHTML = '';
+    }
 
     fetch(apiURL + "/categories")
       .then(res => res.json())
@@ -72,6 +75,7 @@ private activateContainer(): void {
             console.log(element.categorie_name);
           });
         });
+        this.activateContainer()
         
       })
       .catch(error => {

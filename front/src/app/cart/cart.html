@@ -1,27 +1,27 @@
 <div class="cart-container">
   <div class="cart-header">
-    <h2>🛒 Mon Panier</h2>
+    <h2>Cart</h2>
     <div class="cart-summary">
       <span class="total-items">{{ totalItems }} article(s)</span>
-      <span class="total-price">Total: {{ total | number:'1.2-2' }}€</span>
+      <span class="total-price">Order total:  {{ total | number:'1.2-2' }}€</span>
     </div>
   </div>
 
   <div class="cart-content">
     <div *ngIf="loading" class="loading">
       <div class="spinner"></div>
-      <p>Chargement du panier...</p>
+      <p>Loading cart...</p>
     </div>
 
     <div *ngIf="error" class="error-message">
       <p>{{ error }}</p>
-      <button (click)="loadCart()" class="retry-btn">Réessayer</button>
+      <button (click)="loadCart()" class="retry-btn">Try again</button>
     </div>
 
     <div *ngIf="!loading && !error && cartItems.length === 0" class="empty-cart">
       <div class="empty-cart-icon">🛒</div>
-      <h3>Votre panier est vide</h3>
-      <p>Ajoutez des produits pour commencer vos achats !</p>
+      <h3>Your cart is empty</h3>
+      <p>Add products to start shopping!</p>
     </div>
 
     <div *ngIf="!loading && !error && cartItems.length > 0" class="cart-items">
@@ -74,10 +74,10 @@
   <div *ngIf="!loading && !error && cartItems.length > 0" class="cart-footer">
     <div class="cart-actions">
       <button (click)="clearCart()" class="clear-cart-btn">
-        Vider le panier
+        Empty your cart
       </button>
       <button class="checkout-btn">
-        Passer la commande ({{ total | number:'1.2-2' }}€)
+        Checkout ({{ total | number:'1.2-2' }}€)
       </button>
     </div>
   </div>

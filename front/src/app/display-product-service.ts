@@ -1,10 +1,18 @@
 import { Injectable } from '@angular/core';
+import { UserService } from './user-service';
+import { CartService } from './cart-service';
 import { environment } from '../environments/environment';
+import { NotificationService } from './notification';
 
 @Injectable({
   providedIn: 'root'
 })
 export class DisplayProductService {
+  constructor(
+    private userService: UserService,
+    private cartService: CartService,
+    private notificationService: NotificationService
+  ) {}
 
   async displayProductDetails(product: any) {
     const apiURL = environment.apiURL;
@@ -51,10 +59,36 @@ export class DisplayProductService {
       ProductDesc.appendChild(BuyBtn);
     }
 
-
-
-    BuyBtn.addEventListener('click', ()=>{
-      console.log(product);
-    })
+    BuyBtn.addEventListener('click', async () => {
+      document.body.style.overflow = "scroll";
+      try {
+        // Récupérer l'utilisateur connecté
+        const currentUser = this.userService.currentUser();
+        if (!currentUser || !currentUser.id) {
+          this.notificationService.showNotification(
+            'Veuillez vous connecter pour ajouter des produits au panier',
+            'error'
+          );
+          return;
+        }
+        await this.cartService.addToCart(currentUser.id, product.id, 1);
+        // Afficher une notification de succès
+        this.notificationService.showNotification(
+          'Produit ajouté au panier !',
+          'success'
+        );
+        const productPage = document.querySelector('.productContainer') as HTMLElement;
+        if (productPage) {
+          productPage.classList.remove('active');
+        }
+        console.log('Produit ajouté au panier:', product);
+      } catch (error) {
+        console.error("Erreur lors de l'ajout au panier:", error);
+        this.notificationService.showNotification(
+          "Erreur lors de l'ajout au panier",
+          'error'
+        );
+      }
+    });
   }
 }
