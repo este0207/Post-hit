@@ -19,7 +19,10 @@ export class UserService {
   private userSignal = signal<User | null>(null);
   private usersSignal = signal<User[]>([]);
 
-  constructor(private http: HttpClient) { }
+  constructor(private http: HttpClient) {
+    // Vérifier l'état de connexion au démarrage
+    this.checkAuthState();
+  }
 
   // Getters pour les signaux
   get currentUser() {
@@ -28,6 +31,40 @@ export class UserService {
 
   get allUsers() {
     return this.usersSignal.asReadonly();
+  }
+
+  // Vérifier et restaurer l'état de connexion
+  private checkAuthState(): void {
+    const token = localStorage.getItem('jwt_token');
+    if (token) {
+      // Vérifier la validité du token avec le serveur
+      this.http.post<{message: string, user: User, token: string}>(`${this.apiUrl}/login`, { token })
+        .pipe(
+          tap(response => {
+            if (response.user) {
+              this.userSignal.set(response.user);
+              console.log('État de connexion restauré:', response.user);
+            }
+          })
+        )
+        .subscribe({
+          error: (error) => {
+            console.log('Token invalide, suppression du localStorage');
+            localStorage.removeItem('jwt_token');
+            this.userSignal.set(null);
+          }
+        });
+    }
+  }
+
+  // Méthode publique pour vérifier l'état de connexion
+  public isAuthenticated(): boolean {
+    return this.userSignal() !== null;
+  }
+
+  // Méthode pour forcer la vérification de l'état de connexion
+  public refreshAuthState(): void {
+    this.checkAuthState();
   }
 
   // Méthodes pour interagir avec l'API

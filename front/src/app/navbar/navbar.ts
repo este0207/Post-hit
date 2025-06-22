@@ -1,4 +1,4 @@
-import { Component, input, OnInit, computed, effect } from '@angular/core';
+import { Component, OnInit, computed, effect } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
 import { Link } from "../link/link";
 import { Searcbar } from "../searcbar/searcbar";
@@ -6,20 +6,26 @@ import { UserService } from '../user-service';
 
 @Component({
   selector: 'app-navbar',
-  imports: [Link, Searcbar],
+  imports: [Link, Searcbar, RouterLink],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
 export class Navbar implements OnInit {
   constructor(private userService: UserService, private router: Router) {
-    // effect(() => {
-    //   const user = this.userService.currentUser();
-    // });
+    // Surveiller les changements d'état de connexion
+    effect(() => {
+      const user = this.userService.currentUser();
+      console.log('État de connexion dans navbar:', user ? 'Connecté' : 'Déconnecté');
+    });
   }
 
   username = computed(() => {
     const user = this.userService.currentUser();
     return user?.username ?? '';
+  });
+
+  isLoggedIn = computed(() => {
+    return this.userService.isAuthenticated();
   });
 
   ngOnInit() : void{
@@ -53,9 +59,5 @@ export class Navbar implements OnInit {
     if (BurgerMenu) {
       BurgerMenu.classList.toggle("active");
     }
-  }
-
-  ViewFullShop(){
-    this.router.navigate(['FullShop']);
   }
 }

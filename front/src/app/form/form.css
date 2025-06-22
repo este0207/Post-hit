@@ -7,7 +7,7 @@
     min-width: 97%;
     backdrop-filter: blur(3px);
     padding: 20px;
-    top: -150%;
+    top: -200%;
     perspective: 1000px;
     transition: 1s;
     z-index: 3000;

@@ -1,0 +1,84 @@
+<div class="cart-container">
+  <div class="cart-header">
+    <h2>🛒 Mon Panier</h2>
+    <div class="cart-summary">
+      <span class="total-items">{{ totalItems }} article(s)</span>
+      <span class="total-price">Total: {{ total | number:'1.2-2' }}€</span>
+    </div>
+  </div>
+
+  <div class="cart-content">
+    <div *ngIf="loading" class="loading">
+      <div class="spinner"></div>
+      <p>Chargement du panier...</p>
+    </div>
+
+    <div *ngIf="error" class="error-message">
+      <p>{{ error }}</p>
+      <button (click)="loadCart()" class="retry-btn">Réessayer</button>
+    </div>
+
+    <div *ngIf="!loading && !error && cartItems.length === 0" class="empty-cart">
+      <div class="empty-cart-icon">🛒</div>
+      <h3>Votre panier est vide</h3>
+      <p>Ajoutez des produits pour commencer vos achats !</p>
+    </div>
+
+    <div *ngIf="!loading && !error && cartItems.length > 0" class="cart-items">
+      <div class="cart-item" *ngFor="let item of cartItems">
+        <div class="item-image">
+          <img 
+            [src]="getProductImageUrl(item.product_name)" 
+            [alt]="item.product_name"
+            (error)="onImageError($event)"
+            class="product-image">
+        </div>
+        
+        <div class="item-details">
+          <h3 class="item-name">{{ item.product_name }}</h3>
+          <p class="item-description">{{ item.product_desc }}</p>
+          <div class="item-price">{{ item.product_price }}€</div>
+        </div>
+
+        <div class="item-quantity">
+          <button 
+            (click)="updateQuantity(item.product_id, item.quantity - 1)" 
+            class="quantity-btn minus"
+            [disabled]="item.quantity <= 1">
+            -
+          </button>
+          <span class="quantity">{{ item.quantity }}</span>
+          <button 
+            (click)="updateQuantity(item.product_id, item.quantity + 1)" 
+            class="quantity-btn plus">
+            +
+          </button>
+        </div>
+
+        <div class="item-total">
+          <span class="total">{{ (item.product_price * item.quantity) | number:'1.2-2' }}€</span>
+        </div>
+
+        <div class="item-actions">
+          <button 
+            (click)="removeFromCart(item.product_id)" 
+            class="remove-btn"
+            title="Supprimer du panier">
+            🗑️
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="!loading && !error && cartItems.length > 0" class="cart-footer">
+    <div class="cart-actions">
+      <button (click)="clearCart()" class="clear-cart-btn">
+        Vider le panier
+      </button>
+      <button class="checkout-btn">
+        Passer la commande ({{ total | number:'1.2-2' }}€)
+      </button>
+    </div>
+  </div>
+</div> 

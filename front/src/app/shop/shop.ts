@@ -2,10 +2,11 @@ import { Component, inject, OnInit, ViewEncapsulation } from '@angular/core';
 import { environment } from '../../environments/environment';
 import { FetchService } from '../fetch-service';
 import { DisplayProductService } from '../display-product-service';
+import { Theme } from "../theme/theme";
 
 @Component({
   selector: 'app-shop',
-  imports: [],
+  imports: [Theme],
   templateUrl: './shop.html',
   styleUrl: './shop.css',
   encapsulation: ViewEncapsulation.None

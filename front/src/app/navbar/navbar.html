@@ -1,16 +1,16 @@
 <div class="nav">
   <div class="logo">
-    <a href="/"><img src="/post'hit_logo.png" alt="post'hit_logo"></a>
+    <a routerLink="/"><img src="/post'hit_logo.png" alt="post'hit_logo"></a>
   </div>
   <div class="links">
     <ul>
       <app-searcbar></app-searcbar>
        <app-link link_icon="fa-solid fa-magnifying-glass" (click)="useSearch()"></app-link>
        <div class="icons">
-        <app-link link_text="Shop" link_url="FullShop" (click)="ViewFullShop()"></app-link>
+        <app-link link_text="Shop" link_url="/FullShop"></app-link>
         <app-link link_icon="fa-solid fa-user" (click)="userForm()" ></app-link>
         <p>{{username()}}</p>
-        <app-link link_icon="fa-solid fa-cart-shopping"></app-link>
+        <app-link link_icon="fa-solid fa-cart-shopping" link_url="/cart"></app-link>
         <app-link link_icon="fa-solid fa-heart"></app-link>
       </div>
       <div class="mobilIcons">

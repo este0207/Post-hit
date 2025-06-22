@@ -47,10 +47,9 @@ export class Main implements OnInit{
   }
 
   private handleRouteChange(): void {
-    if (this.router.url === '/FullShop') {
+    if (this.router.url === '/FullShop' || this.router.url === '/cart') {
       this.isVisible = false;
     } else {
-
       this.isVisible = true;
     }
 }

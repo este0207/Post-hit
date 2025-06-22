@@ -19,7 +19,7 @@ if (!process.env.JWT_SECRET_KEY) {
     process.exit(1);
 }
 
-const host = "192.168.10.103";
+const host = "localhost";
 const PORT = "8090";
 
 const GOOGLE_CLIENT_ID = "220247244335-eu66pg82ffgefo7o235tg2dateq4g4bi.apps.googleusercontent.com";
@@ -39,7 +39,7 @@ async function main(){
     const bestsellingModel = new BestsellingModel(client);
     const categorieModel = new CategorieModel(client);
 
-    // const cartModel = new Cart(client);
+    const cartModel = new Cart(client);
 
     const server = express();
     
@@ -344,6 +344,27 @@ async function main(){
         try {
             const { token, email, password } = req.body;
 
+            // Si un token est fourni, vérifier sa validité et renvoyer l'utilisateur
+            if (token && !email && !password) {
+                try {
+                    let decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
+                    const user = await userModel.getUserById(decoded.data);
+                    if (user) {
+                        res.json({ 
+                            message: "Connexion réussie avec token existant", 
+                            user: user, 
+                            token 
+                        });
+                    } else {
+                        res.status(401).json({ message: "Utilisateur non trouvé" });
+                    }
+                } catch(err) {
+                    res.status(401).json({ message: "Token invalide" });
+                }
+                return;
+            }
+
+            // Connexion normale avec email et mot de passe
             if (!email || !password) {
                 return res.status(400).json("Email et mot de passe requis");
             }
@@ -353,25 +374,15 @@ async function main(){
                 return res.status(401).json("Email ou mot de passe incorrect");
             }
 
-            if (!token) {
-                const token = jwt.sign({
-                    data: user.id
-                }, process.env.JWT_SECRET_KEY, { expiresIn: '7d' });
-                
-                res.json({ 
-                    message: "Connexion réussie", 
-                    user: user, 
-                    token 
-                });
-            } else {
-                try {
-                    let decoded = jwt.verify(token, process.env.JWT_SECRET_KEY);
-                    console.log(decoded);
-                    res.json({message: "Connexion réussie avec token existant"});
-                } catch(err) {
-                    res.status(401).json({ message: "Token invalide" });
-                }
-            }
+            const newToken = jwt.sign({
+                data: user.id
+            }, process.env.JWT_SECRET_KEY, { expiresIn: '7d' });
+            
+            res.json({ 
+                message: "Connexion réussie", 
+                user: user, 
+                token: newToken 
+            });
         } catch (err) {
             console.error(err);
             res.status(500).json("Erreur interne lors de la connexion");
@@ -457,17 +468,91 @@ async function main(){
 
     // --------  Cart commande  --------- //
 
-    server.get("/get-cart", async(req,res)=>{
+    // GET - Récupérer le panier d'un utilisateur
+    server.get("/cart/:userId", async(req,res)=>{
         try {
-            const result = await cartModel.getCart();
+            const { userId } = req.params;
+            const result = await cartModel.getCart(userId);
             if (!result) {
                 return res.status(404).json("Panier non trouvé");
             }
-            console.log(result);
+            console.log(`Panier récupéré pour l'utilisateur ${userId}:`, result);
             res.json(result);
         } catch (err) {
             console.error(err);
             res.status(500).json("Erreur interne lors de la récupération du panier");
+        }
+    });
+
+    // POST - Ajouter un produit au panier
+    server.post("/cart/add", async(req,res)=>{
+        try {
+            const { userId, productId, quantity = 1 } = req.body;
+            
+            if (!userId || !productId) {
+                return res.status(400).json("userId et productId sont requis");
+            }
+
+            const result = await cartModel.addToCart(userId, productId, quantity);
+            console.log(`Produit ${productId} ajouté au panier de l'utilisateur ${userId}`);
+            res.status(201).json(result);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json("Erreur interne lors de l'ajout au panier");
+        }
+    });
+
+    // DELETE - Supprimer un produit du panier
+    server.delete("/cart/remove", async(req,res)=>{
+        try {
+            const { userId, productId } = req.body;
+            
+            if (!userId || !productId) {
+                return res.status(400).json("userId et productId sont requis");
+            }
+
+            const result = await cartModel.removeFromCart(userId, productId);
+            console.log(`Produit ${productId} supprimé du panier de l'utilisateur ${userId}`);
+            res.json(result);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json("Erreur interne lors de la suppression du panier");
+        }
+    });
+
+    // PUT - Mettre à jour la quantité d'un produit
+    server.put("/cart/update-quantity", async(req,res)=>{
+        try {
+            const { userId, productId, quantity } = req.body;
+            
+            if (!userId || !productId || quantity === undefined) {
+                return res.status(400).json("userId, productId et quantity sont requis");
+            }
+
+            const result = await cartModel.updateQuantity(userId, productId, quantity);
+            console.log(`Quantité du produit ${productId} mise à jour pour l'utilisateur ${userId}: ${quantity}`);
+            res.json(result);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json("Erreur interne lors de la mise à jour de la quantité");
+        }
+    });
+
+    // DELETE - Vider le panier d'un utilisateur
+    server.delete("/cart/clear/:userId", async(req,res)=>{
+        try {
+            const { userId } = req.params;
+            
+            if (!userId) {
+                return res.status(400).json("userId est requis");
+            }
+
+            const result = await cartModel.clearCart(userId);
+            console.log(`Panier vidé pour l'utilisateur ${userId}`);
+            res.json(result);
+        } catch (err) {
+            console.error(err);
+            res.status(500).json("Erreur interne lors du vidage du panier");
         }
     });
 
