@@ -40,7 +40,6 @@ export class LikestProduct implements OnInit, OnDestroy{
     });
 
     this.handleRouteChange();
-      // this.loadProducts();
 
   }
 

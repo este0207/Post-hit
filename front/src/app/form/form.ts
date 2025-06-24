@@ -162,8 +162,19 @@ export class Form implements OnInit {
     }
     this.userService.loginWithGoogle(response.credential)
       .subscribe({
-        next: () => {
+        next: (user) => {
           this.successMessage = 'Connexion Google réussie !';
+          // Envoi du mail de confirmation si email présent
+          if (user && user.email) {
+            this.userService.sendMail(user.email).subscribe({
+              next: () => {
+                console.log('Mail de confirmation envoyé');
+              },
+              error: (error) => {
+                console.error('Erreur lors de l\'envoi du mail', error);
+              }
+            });
+          }
           const form = document.querySelector('.formcontainer') as HTMLElement;
           setTimeout(() => {
             if (form) {
