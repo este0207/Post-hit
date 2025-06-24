@@ -78,7 +78,7 @@ export class LikestProduct implements OnInit, OnDestroy{
       likesproductsContainer.innerHTML = ''
     }
     
-    fetch(apiURL + "/bestselling")
+    fetch("https://93a4-2a05-6e02-10f4-4110-c59f-a178-ba6a-a662.ngrok-free.app/bestselling")
       .then(res => res.json())
       .then((data) => {
         console.log('Données reçues de l\'API:', data);

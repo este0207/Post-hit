@@ -23,7 +23,7 @@ if (!process.env.JWT_SECRET_KEY) {
     process.exit(1);
 }
 
-const host = "192.168.10.109";
+const host = "localhost";
 const PORT = "8090";
 const FRONTPORT = "4200"
 const YOUR_DOMAIN = `http://${host}:${FRONTPORT}`;
@@ -670,7 +670,12 @@ async function main(){
                 to: email,
                 subject: "Post'hit Register",
                 text: "Thank for register to Post'hit, for start to shopping click here"+"http://localhost:4200/",
-                html: `<b>Thank you for registering to Post'hit, to start shopping click here <a href="http://localhost:4200/">Post'hit</a></b><br><b>This is an automated email, please do not reply.</b>`,
+                html: `<p><strong>Thank you for registering with Post'hit!</strong></p>
+                <p>We're excited to have you on board. To start exploring and shopping, simply click the link below:</p>
+                <p><a href="${host}:${FRONTPORT}" target="_blank" style="font-weight:bold; color:#007BFF;">Start Shopping on Post'hit</a></p>
+                <hr>
+                <p style="color:gray;"><em>This is an automated message. Please do not reply to this email.</em></p>
+                `
             });
 
             console.log("Message sent:", info.messageId);
