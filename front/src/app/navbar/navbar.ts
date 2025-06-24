@@ -3,10 +3,11 @@ import { RouterLink, Router } from '@angular/router';
 import { Link } from "../link/link";
 import { Searcbar } from "../searcbar/searcbar";
 import { UserService } from '../user-service';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [Link, Searcbar, RouterLink],
+  imports: [Link, Searcbar, RouterLink, CommonModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })
@@ -59,5 +60,10 @@ export class Navbar implements OnInit {
     if (BurgerMenu) {
       BurgerMenu.classList.toggle("active");
     }
+  }
+
+  logout() {
+    this.userService.logout();
+    this.router.navigate(['/']);
   }
 }

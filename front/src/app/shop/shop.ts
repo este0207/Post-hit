@@ -3,7 +3,6 @@ import { environment } from '../../environments/environment';
 import { FetchService } from '../fetch-service';
 import { DisplayProductService } from '../display-product-service';
 import { Theme } from "../theme/theme";
-// import { Theme } from "../theme/theme";
 
 @Component({
   selector: 'app-shop',

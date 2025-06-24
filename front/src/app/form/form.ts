@@ -134,6 +134,14 @@ export class Form implements OnInit {
           password: '',
           confirmPassword: ''
         };
+        this.userService.sendMail(this.registerForm.email).subscribe({
+          next: () => {
+            console.log('Mail de confirmation envoyé');
+          },
+          error: (error) => {
+            console.error('Erreur lors de l\'envoi du mail', error);
+          }
+        });
         setTimeout(() => {
           this.flipCard('front');
         }, 2000);

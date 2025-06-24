@@ -272,7 +272,7 @@
   background: #7f8c8d;
 }
 
-.checkout-btn {
+#checkout-btn {
   background: #3498db;
   color: white;
   border: none;
@@ -284,7 +284,7 @@
   transition: background 0.3s;
 }
 
-.checkout-btn:hover {
+#checkout-btn:hover {
   background: #2679b0;
 }
 

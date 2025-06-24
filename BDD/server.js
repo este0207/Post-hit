@@ -11,16 +11,22 @@ import bcrypt from "bcrypt"
 import fileUpload from "express-fileupload";
 import { BestsellingModel } from "./bestselling.model.js";
 import {OAuth2Client} from 'google-auth-library';
+import Stripe from 'stripe';
+import nodemailer from 'nodemailer'
 
 dotenv.config();
+
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY, { apiVersion: '2022-11-15' });
 
 if (!process.env.JWT_SECRET_KEY) {
     console.error("La clé secrète JWT n'est pas définie dans les variables d'environnement");
     process.exit(1);
 }
 
-const host = "localhost";
+const host = "192.168.10.109";
 const PORT = "8090";
+const FRONTPORT = "4200"
+const YOUR_DOMAIN = `http://${host}:${FRONTPORT}`;
 
 const GOOGLE_CLIENT_ID = "220247244335-eu66pg82ffgefo7o235tg2dateq4g4bi.apps.googleusercontent.com";
 const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
@@ -56,6 +62,37 @@ async function main(){
 
     server.get("/",(req,res)=>{
         res.send("Bienvenue dans l'api")
+    });
+
+    // route stripe //
+    server.post('/create-checkout-session', async (req, res) => {
+        try {
+            const items = req.body.items;
+            if (!items || !Array.isArray(items) || items.length === 0) {
+                return res.status(400).json({ error: 'Aucun produit dans le panier.' });
+            }
+            const line_items = items.map(item => ({
+                price_data: {
+                    currency: 'eur',
+                    product_data: {
+                        name: item.product_name,
+                        description: item.product_desc || '',
+                    },
+                    unit_amount: Math.round(item.product_price * 100),
+                },
+                quantity: item.quantity,
+            }));
+            const session = await stripe.checkout.sessions.create({
+                line_items,
+                mode: 'payment',
+                success_url: `${YOUR_DOMAIN}/success.html`,
+                cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+            });
+            res.json({ url: session.url });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ error: "Erreur lors de la création de la session Stripe" });
+        }
     });
 
     // Route spécifique pour les images
@@ -609,6 +646,38 @@ async function main(){
         } catch (err) {
             console.error(err);
             res.status(401).json({ message: "Token Google invalide" });
+        }
+    });
+
+    // --------- envoie de mail pour confiramtion de rejister ---------- //
+
+    server.post("/send-mail", async (req,res) => {
+        try {
+            const { email } = req.body;
+            if (!email) {
+                return res.status(400).json({ message: "Email utilisateur manquant" });
+            }
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.GMAIL_USER, // adresse email
+                    pass: process.env.GMAIL_PASS // mot de passe d'application Gmail
+                }
+            });
+
+            const info = await transporter.sendMail({
+                from: 'pyxis0207@gmail.com',
+                to: email,
+                subject: "Post'hit Register",
+                text: "Thank for register to Post'hit, for start to shopping click here"+"http://localhost:4200/",
+                html: `<b>Thank you for registering to Post'hit, to start shopping click here <a href="http://localhost:4200/">Post'hit</a></b><br><b>This is an automated email, please do not reply.</b>`,
+            });
+
+            console.log("Message sent:", info.messageId);
+            res.json({ message: "Email envoyé avec succès" });
+        } catch(error) {
+            console.error(error);
+            res.status(500).json({ message: "Erreur lors de l'envoi de l'email" });
         }
     });
 

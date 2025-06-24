@@ -8,10 +8,11 @@
        <app-link link_icon="fa-solid fa-magnifying-glass" (click)="useSearch()"></app-link>
        <div class="icons">
         <app-link link_text="Shop" link_url="/FullShop"></app-link>
-        <app-link link_icon="fa-solid fa-user" (click)="userForm()" ></app-link>
+        <app-link link_text="Login" (click)="userForm()" *ngIf="!isLoggedIn()" ></app-link>
         <p>{{username()}}</p>
         <app-link link_icon="fa-solid fa-cart-shopping" link_url="/cart"></app-link>
         <app-link link_icon="fa-solid fa-heart"></app-link>
+        <button *ngIf="isLoggedIn()" (click)="logout()" class="logout-btn">Se déconnecter</button>
       </div>
       <div class="mobilIcons">
         <app-link link_icon="fa-solid fa-bars" (click)="ShowMenu()"></app-link>

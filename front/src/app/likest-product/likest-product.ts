@@ -6,6 +6,7 @@ import { CommonModule } from '@angular/common';
 import { CartService } from '../cart-service';
 import { UserService } from '../user-service';
 import { NotificationService } from '../notification';
+import { DisplayProductService } from '../display-product-service';
 
 @Component({
   selector: 'app-likest-product',
@@ -23,7 +24,8 @@ export class LikestProduct implements OnInit, OnDestroy{
     private router: Router, 
     private cartService: CartService,
     private userService: UserService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private displayProductService: DisplayProductService
   ) {}
 
   ngOnInit(): void {
@@ -38,6 +40,8 @@ export class LikestProduct implements OnInit, OnDestroy{
     });
 
     this.handleRouteChange();
+      // this.loadProducts();
+
   }
 
   ngOnDestroy(): void {
@@ -52,7 +56,9 @@ export class LikestProduct implements OnInit, OnDestroy{
     } else {
       this.isVisible = true;
       this.activateContainer();
-      this.loadProducts();
+      setTimeout(() => {
+        this.loadProducts();
+      }, 50);
     }
   }
 
@@ -67,12 +73,17 @@ export class LikestProduct implements OnInit, OnDestroy{
 
   private loadProducts() {
     const apiURL = environment.apiURL;
-
+    
+    const likesproductsContainer = document.querySelector('.likesproductsContainer') as HTMLElement;
+    if (likesproductsContainer) {
+      likesproductsContainer.innerHTML = ''
+    }
+    
     fetch(apiURL + "/bestselling")
       .then(res => res.json())
       .then((data) => {
         console.log('Données reçues de l\'API:', data);
-        const likesproductsContainer = document.querySelector('.likesproductsContainer') as HTMLElement;
+        // const likesproductsContainer = document.querySelector('.likesproductsContainer') as HTMLElement;
 
         data.forEach((element: any) => {
          console.log(element)
@@ -142,83 +153,7 @@ export class LikestProduct implements OnInit, OnDestroy{
   }
 
   private displayProductDetails(product: any) {
-    const apiURL = environment.apiURL;
-    
-    // Vider le contenu existant
-    const ProductDesc = document.querySelector('.ProductDesc') as HTMLElement;
-    const ProductImg = document.querySelector(".ProductImg") as HTMLElement;
-    
-    if (ProductDesc) ProductDesc.innerHTML = '';
-    if (ProductImg) ProductImg.innerHTML = '';
-    
-    // Créer l'image du produit
-    const productImage = document.createElement('img');
-    productImage.src = product.product_name ? `${apiURL}/images/${product.product_name}${environment.format}` : `${apiURL}/images/placeholder${environment.format}`;
-    productImage.alt = product.product_name+'IMG' || 'ProduitIMG';
-    productImage.className = 'product-image2';
-    
-    // Gestion d'erreur pour les images
-    productImage.onerror = () => {
-      productImage.src = `${apiURL}/placeholder.png`;
-    };
-    
-    const productTitle = document.createElement('p');
-    productTitle.innerText = product.product_name || 'Sans nom';
-    productTitle.className = 'product-name';
-
-    const productDesc = document.createElement('p');
-    productDesc.innerText = product.product_desc || 'Aucune description disponible';
-    productDesc.className = 'product-desc';
-
-    const productPrice = document.createElement('p');
-    productPrice.innerText = product.product_price ? product.product_price+'€' : 'Prix non disponible';
-    productPrice.className = 'product-price';
-
-    const BuyBtn = document.createElement('button');
-    BuyBtn.innerText = 'ADD to Cart';
-    BuyBtn.className = 'BuyBtn';
-    
-    if (ProductImg) ProductImg.appendChild(productImage);
-    if (ProductDesc) {
-      ProductDesc.appendChild(productTitle);
-      ProductDesc.appendChild(productDesc);
-      ProductDesc.appendChild(productPrice);
-      ProductDesc.appendChild(BuyBtn);
-    }
-
-    BuyBtn.addEventListener('click', async () => {
-      document.body.style.overflow = "scroll";
-      try {
-        // Récupérer l'utilisateur connecté
-        const currentUser = this.userService.currentUser();
-        
-        if (!currentUser || !currentUser.id) {
-          this.notificationService.showNotification(
-            'Veuillez vous connecter pour ajouter des produits au panier',
-            'error'
-          );
-          return;
-        }
-        
-        await this.cartService.addToCart(currentUser.id, product.id, 1);
-        this.notificationService.showNotification(
-          'Produit ajouté au panier !',
-          'success'
-        );
-        const productPage = document.querySelector(".productContainer") as HTMLElement;
-        if (productPage) {
-          productPage.classList.remove("active");
-        }
-        
-        console.log('Produit ajouté au panier:', product);
-      } catch (error) {
-        console.error('Erreur lors de l\'ajout au panier:', error);
-        this.notificationService.showNotification(
-          'Erreur lors de l\'ajout au panier',
-          'error'
-        );
-      }
-    });
+    this.displayProductService.displayProductDetails(product);
   }
 }
 

@@ -130,4 +130,22 @@ export class Cart implements OnInit {
   onImageError(event: any): void {
     event.target.src = `${this.apiURL}/images/placeholder${environment.format}`;
   }
+
+  async checkout(): Promise<void> {
+    try {
+      const response = await fetch(`${this.apiURL}/create-checkout-session`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ items: this.cartItems })
+      });
+      const data = await response.json();
+      if (data.url) {
+        window.location.href = data.url;
+      } else {
+        this.error = 'Erreur lors de la création de la session de paiement.';
+      }
+    } catch (error) {
+      this.error = 'Erreur lors de la création de la session de paiement.';
+    }
+  }
 } 

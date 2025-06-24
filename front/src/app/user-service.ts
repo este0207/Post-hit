@@ -152,4 +152,8 @@ export class UserService {
         map(response => response.user)
       );
   }
+
+  sendMail(email: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/send-mail`, { email });
+  }
 }
