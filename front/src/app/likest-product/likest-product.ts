@@ -71,63 +71,21 @@ export class LikestProduct implements OnInit, OnDestroy{
   }
 
   private loadProducts() {
-    const apiURL = environment.apiURL;
-    
     const likesproductsContainer = document.querySelector('.likesproductsContainer') as HTMLElement;
-    if (likesproductsContainer) {
-      likesproductsContainer.innerHTML = ''
+    if (!likesproductsContainer) {
+      console.error('Container likesproductsContainer non trouvé');
+      return;
     }
     
-    fetch(apiURL + "/bestselling")
-      .then(res => res.json())
-      .then((data) => {
-        console.log('Données reçues de l\'API:', data);
-        // const likesproductsContainer = document.querySelector('.likesproductsContainer') as HTMLElement;
-
-        data.forEach((element: any) => {
-         console.log(element)
-
-         const ProductDiv = document.createElement('div');
-         ProductDiv.className = 'ProducDiv';
-          
-          // Créer l'image du produit
-          const productImage = document.createElement('img');
-          productImage.crossOrigin = 'anonymous';
-          productImage.src = element.product_name ? `${apiURL}/images/${element.product_name}${environment.format}` : `${apiURL}/images/placeholder${environment.format}`;
-          productImage.alt = element.product_name || 'Produit';
-          productImage.className = 'product-image';
-          
-          // Gestion d'erreur pour les images
-          productImage.onerror = () => {
-            productImage.src = `${apiURL}/placeholder.png`;
-          };
-          
-          const paragraph = document.createElement('p');
-          paragraph.innerText = element.product_name || 'Sans nom';
-          paragraph.className = 'product-name';
-          
-          ProductDiv.appendChild(productImage);
-          ProductDiv.appendChild(paragraph);
-          likesproductsContainer.appendChild(ProductDiv);
-
-          ProductDiv.addEventListener("click", () => {
-            console.log(element.product_name);
-            window.scrollTo({
-              top: 0,
-              behavior: 'smooth',
-            });
-            this.loadProductDetails(element.id);
-            setTimeout(() => {
-              document.body.style.overflow = "hidden";
-            }, 500);
-        });
-        
-      })
-    })
-      .catch(error => {
-        console.error('Erreur lors du chargement des produits:', error);
-      });
-    }
+    // Utiliser le DisplayProductService pour charger et afficher les produits
+    this.displayProductService.displayProductList(
+      '/bestselling', 
+      likesproductsContainer,
+      (productId: number) => this.loadProductDetails(productId)
+    ).catch(error => {
+      console.error('Erreur lors du chargement des produits:', error);
+    });
+  }
 
   private loadProductDetails(productId: number) {
     const apiURL = environment.apiURL;

@@ -23,7 +23,7 @@ if (!process.env.JWT_SECRET_KEY) {
     process.exit(1);
 }
 
-const host = "192.168.10.109";
+const host = "localhost";
 const PORT = "8090";
 const FRONTPORT = "4200"
 const YOUR_DOMAIN = `http://${host}:${FRONTPORT}`;
@@ -56,7 +56,7 @@ async function main(){
         allowedHeaders: ['Content-Type', 'Authorization', 'X-Requested-With']
     }));
     
-    server.use(express.json());
+    server.use(express.json())
     server.use(express.static("public"));
     server.use(fileUpload());
 
