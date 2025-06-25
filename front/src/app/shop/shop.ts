@@ -34,8 +34,18 @@ export class Shop implements OnInit {
   }
 
   private loadProducts() {
-    this.fetchService.loadproducts()
-      .then((data) => {
+    const fullshop = document.querySelector('.fullShop') as HTMLElement;
+    if (!fullshop) {
+      console.error('Container fullshop non trouvé');
+      return;
+    }
+
+    // Utiliser le DisplayProductService pour charger et afficher les produits
+    this.displayProductService.displayProductList(
+      '/products', 
+      fullshop,
+      (productId: number) => this.loadProductDetails(productId)
+    ).then((data) => {
         console.log('Produits chargés avec succès:', data);
       })
       .catch(error => {
@@ -58,10 +68,14 @@ export class Shop implements OnInit {
         }
         
         // Charger les détails du produit dans la page
-        this.displayProductService.displayProductDetails(data);
+        this.displayProductDetails(data);
       })
       .catch(error => {
         console.error('Erreur lors du chargement des détails du produit:', error);
       });
+  }
+
+  private displayProductDetails(product: any) {
+    this.displayProductService.displayProductDetails(product);
   }
 }

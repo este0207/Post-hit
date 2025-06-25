@@ -12,9 +12,13 @@ export class Cart{
     }
     
     async getCart(userId = null){
-        let query = `SELECT c.*, p.product_name, p.product_price, p.product_desc 
+        let query = `SELECT c.*, 
+                     COALESCE(b.product_name, p.product_name) as product_name,
+                     COALESCE(b.product_price, p.product_price) as product_price,
+                     COALESCE(b.product_desc, p.product_desc) as product_desc
                      FROM cart c 
-                     JOIN bestselling p ON c.product_id = p.id`;
+                     LEFT JOIN bestselling b ON c.product_id = b.id
+                     LEFT JOIN product p ON c.product_id = p.id`;
         
         if (userId) {
             query += ` WHERE c.user_id = ?`;

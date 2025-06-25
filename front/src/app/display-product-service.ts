@@ -128,7 +128,7 @@ export class DisplayProductService {
     }
 
     BuyBtn.addEventListener('click', async () => {
-      document.body.style.overflow = "scroll";
+      document.body.style.overflowY = "scroll";
       try {
         // Récupérer l'utilisateur connecté
         const currentUser = this.userService.currentUser();
