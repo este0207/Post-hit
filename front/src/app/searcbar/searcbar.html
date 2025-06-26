@@ -1,1 +1,1 @@
-<input type="text" class="searchbar">
+<input type="text" class="searchbar" placeholder="Rechercher par nom ou thème..." [(ngModel)]="searchText" (input)="onSearch()" (keyup.enter)="onSearch()">

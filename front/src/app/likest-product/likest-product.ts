@@ -7,6 +7,7 @@ import { CartService } from '../cart-service';
 import { UserService } from '../user-service';
 import { NotificationService } from '../notification';
 import { DisplayProductService } from '../display-product-service';
+import { ThemeSelectionService } from '../theme-selection.service';
 
 @Component({
   selector: 'app-likest-product',
@@ -25,7 +26,8 @@ export class LikestProduct implements OnInit, OnDestroy{
     private cartService: CartService,
     private userService: UserService,
     private notificationService: NotificationService,
-    private displayProductService: DisplayProductService
+    private displayProductService: DisplayProductService,
+    private themeSelectionService: ThemeSelectionService
   ) {}
 
   ngOnInit(): void {
@@ -40,6 +42,14 @@ export class LikestProduct implements OnInit, OnDestroy{
     });
 
     this.handleRouteChange();
+
+    this.themeSelectionService.selectedTheme$.subscribe(theme => {
+      if (theme && this.isVisible) {
+        this.loadProducts(theme);
+      } else if (this.isVisible) {
+        this.loadProducts();
+      }
+    });
 
   }
 
@@ -70,16 +80,18 @@ export class LikestProduct implements OnInit, OnDestroy{
     }, 700);
   }
 
-  private loadProducts() {
+  private loadProducts(theme?: string) {
     const likesproductsContainer = document.querySelector('.likesproductsContainer') as HTMLElement;
     if (!likesproductsContainer) {
       console.error('Container likesproductsContainer non trouvé');
       return;
     }
-    
-    // Utiliser le DisplayProductService pour charger et afficher les produits
+    let endpoint = '/bestselling';
+    if (theme) {
+      endpoint += `?theme=${encodeURIComponent(theme)}`;
+    }
     this.displayProductService.displayProductList(
-      '/bestselling', 
+      endpoint,
       likesproductsContainer,
       (productId: number) => this.loadProductDetails(productId)
     ).catch(error => {
