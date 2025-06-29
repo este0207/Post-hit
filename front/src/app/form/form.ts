@@ -24,6 +24,7 @@ export class Form implements OnInit {
     const formcontainer = document.querySelector(".formcontainer") as HTMLElement;
     if (formcontainer) {
       formcontainer.classList.remove("active");
+      document.body.style.overflowY = "scroll";
     }
   }
 

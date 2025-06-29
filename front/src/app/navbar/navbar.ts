@@ -44,6 +44,13 @@ export class Navbar implements OnInit {
   userForm(){
     const form = document.querySelector(".formcontainer") as HTMLElement;
     if (form) {
+      window.scrollTo({
+        top: 0,
+        behavior: 'smooth',
+      });
+      setTimeout(() => {
+        document.body.style.overflow = "hidden";
+      }, 500);
       form.classList.toggle("active");
     }
   }

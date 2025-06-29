@@ -1,3 +1,7 @@
+// Polyfill pour Headers (nécessaire pour google-auth-library avec ES modules)
+import { Headers } from 'node-fetch';
+global.Headers = Headers;
+
 import mysql from "mysql2/promise";
 import { User } from "./user.model.js";
 import { ProductModel } from "./product.model.js";
