@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { RouterLink } from '@angular/router';
 
 @Component({
@@ -7,6 +7,14 @@ import { RouterLink } from '@angular/router';
   templateUrl: './footer.html',
   styleUrl: './footer.css'
 })
-export class Footer {
+export class Footer implements OnInit{
 
+  ngOnInit(): void {
+    setTimeout(() => {
+      const footerContainer = document.querySelector('.footerContainer') as HTMLElement;
+      if (footerContainer) {
+        footerContainer.classList.add("active");
+      }
+    }, 700);
+  }
 }

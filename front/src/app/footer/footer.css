@@ -5,9 +5,13 @@
     background-color: antiquewhite;
     margin: 10px;
     padding: 10px;
-    /* min-height: 200px; */
+    opacity: 0;
+    transition: 0.5s;
     border-radius: 20px;
-    /* align-items: center; */
+}
+
+.footerContainer.active{
+    opacity: 1;
 }
 
 .footerLinks{

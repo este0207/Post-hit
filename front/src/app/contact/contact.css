@@ -7,6 +7,12 @@
     gap: 10px;
     padding: 10px;
     border-radius: 20px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.contactContainer.active{
+    opacity: 1;
 }
 
 .contactForm{

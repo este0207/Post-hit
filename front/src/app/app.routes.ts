@@ -5,6 +5,7 @@ import { Main } from './main/main';
 import { Success } from './success/success';
 import { CGV } from './cgv/cgv';
 import { Contact } from './contact/contact';
+import { Payement } from './payement/payement';
 
 export const routes: Routes = [
     { path: '', 
@@ -30,6 +31,10 @@ export const routes: Routes = [
     { path: 'contact', 
         component: Contact,
         title: 'contact'
+    },
+    { path: 'payement', 
+        component: Payement,
+        title: 'payement'
     }
 ];
 
