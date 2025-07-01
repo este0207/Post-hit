@@ -15,7 +15,8 @@ export class Theme implements OnInit{
   isVisible: boolean = true;
 
   constructor(private router: Router, private route: ActivatedRoute) {}
-
+  
+  categories: any[] = [];
   ngOnInit(): void {
     // Vérifier la route actuelle
     this.handleRouteChange();
@@ -25,16 +26,15 @@ export class Theme implements OnInit{
       this.handleRouteChange();
     });
 
-    // this.loadProducts()
-
   }
 
+
   private handleRouteChange(): void {
-    if (this.router.url === '/cart' || this.router.url === '/success') {
-      this.isVisible = false;
-    } else {
+    if (this.router.url === '/' || this.router.url === '/FullShop') {
       this.isVisible = true;
       this.loadProducts()
+    } else {
+      this.isVisible = false;
     }
 }
 
@@ -49,38 +49,19 @@ private activateContainer(): void {
 
   private loadProducts() {
     const apiURL = environment.apiURL;
-
-    const themecontainer = document.querySelector('.themecontainer') as HTMLElement;
-    if (themecontainer) {
-      themecontainer.innerHTML = '';
-    }
-
     fetch(apiURL + "/categories")
       .then(res => res.json())
       .then((data) => {
-        console.log('Données reçues de l\'API:', data);
-        const themecontainer = document.querySelector('.themecontainer') as HTMLElement;
-
-        data.forEach((element: any) => {
-          const themeDiv = document.createElement('div');
-          themeDiv.className = 'theme';
-          
-          const paragraph = document.createElement('p');
-          paragraph.innerText = element.categorie_name || 'Sans nom';
-          
-          themeDiv.appendChild(paragraph);
-          themecontainer.appendChild(themeDiv);
-
-          themeDiv.addEventListener("click", () => {
-            console.log(element.categorie_name);
-          });
-        });
-        this.activateContainer()
-        
+        this.categories = data;
+        this.activateContainer();
       })
       .catch(error => {
         console.error('Erreur lors du chargement des produits:', error);
       });
-    }
+  }
+
+  onCategoryClick(element: any) {
+    console.log(element.categorie_name);
+  }
 
 }
