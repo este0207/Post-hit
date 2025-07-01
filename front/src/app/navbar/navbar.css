@@ -19,6 +19,10 @@
   top: 0;
 }
 
+p:hover{
+  cursor: pointer;
+}
+
 .logo{
   display: flex;
   object-fit: contain;

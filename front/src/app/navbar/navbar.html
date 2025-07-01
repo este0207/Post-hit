@@ -9,7 +9,7 @@
        <div class="icons">
         <app-link link_text="Shop" link_url="/FullShop"></app-link>
         <app-link link_text="Login" (click)="userForm()" *ngIf="!isLoggedIn()" ></app-link>
-        <p>{{username()}}</p>
+        <p routerLink="/user-profil">{{username()}}</p>
         <app-link link_icon="fa-solid fa-cart-shopping" link_url="/cart"></app-link>
         <app-link link_icon="fa-solid fa-heart"></app-link>
         <button *ngIf="isLoggedIn()" (click)="logout()" class="logout-btn">Se déconnecter</button>

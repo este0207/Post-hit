@@ -1,0 +1,47 @@
+.profilContainer{
+    display: flex;
+    flex-direction: column;
+    background-color: antiquewhite;
+    margin: 15px;
+    border-radius: 20px;
+    padding: 20px;
+    align-items: center;
+    gap: 12px;
+    opacity: 0;
+    transition: 0.5s;
+}
+
+.profilContainer.active{
+    opacity: 1;
+}
+
+.userInfo{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    background-color: white;
+    align-items: center;
+    border-radius: 20px;
+    padding: 20px;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.172);
+    gap: 10px;
+}
+
+form{
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    background-color: white;
+    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.172);
+    padding: 20px;
+    border-radius: 20px;
+}
+
+input{
+    border-radius: 20px;
+    border: none;
+    min-height: 25px;
+    max-width: 200px;
+    padding-left: 10px;
+    border: 1px solid rgb(246, 211, 166);
+}

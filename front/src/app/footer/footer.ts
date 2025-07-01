@@ -13,7 +13,7 @@ export class Footer implements OnInit{
     setTimeout(() => {
       const footerContainer = document.querySelector('.footerContainer') as HTMLElement;
       if (footerContainer) {
-        footerContainer.classList.add("active");
+        footerContainer.classList.toggle("active");
       }
     }, 700);
   }

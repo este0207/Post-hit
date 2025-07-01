@@ -6,6 +6,7 @@ import { Success } from './success/success';
 import { CGV } from './cgv/cgv';
 import { Contact } from './contact/contact';
 import { Payement } from './payement/payement';
+import { UserProfil } from './user-profil/user-profil';
 
 export const routes: Routes = [
     { path: '', 
@@ -35,6 +36,10 @@ export const routes: Routes = [
     { path: 'payement', 
         component: Payement,
         title: 'payement'
+    },
+    { path: 'user-profil', 
+        component: UserProfil,
+        title: 'user-profil'
     }
 ];
 

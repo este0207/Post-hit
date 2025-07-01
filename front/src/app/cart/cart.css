@@ -1,5 +1,6 @@
 .cart-container {
   max-width: 1200px;
+  min-height: 29.4rem;
   margin: 0 auto;
   padding: 20px;
   font-family: 'Asap', sans-serif;
