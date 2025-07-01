@@ -30,7 +30,7 @@ export class Theme implements OnInit{
   }
 
   private handleRouteChange(): void {
-    if (this.router.url === '/cart') {
+    if (this.router.url === '/cart' || this.router.url === '/success') {
       this.isVisible = false;
     } else {
       this.isVisible = true;

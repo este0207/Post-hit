@@ -13,6 +13,7 @@ import { CommonModule } from '@angular/common';
 })
 export class Navbar implements OnInit {
   constructor(private userService: UserService, private router: Router) {
+
     // Surveiller les changements d'état de connexion
     effect(() => {
       const user = this.userService.currentUser();
@@ -73,4 +74,5 @@ export class Navbar implements OnInit {
     this.userService.logout();
     this.router.navigate(['/']);
   }
+
 }

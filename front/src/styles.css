@@ -19,6 +19,7 @@ body{
     flex-direction: column;
     font-family: "Asap";
     overflow-x:hidden;
+    min-height: 100vh;
 }
 
 @media (max-width:679px){

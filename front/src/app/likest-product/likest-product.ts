@@ -60,14 +60,14 @@ export class LikestProduct implements OnInit, OnDestroy{
   }
 
   private handleRouteChange(): void {
-    if (this.router.url === '/FullShop' || this.router.url === '/cart') {
-      this.isVisible = false;
-    } else {
+    if (this.router.url === '/') {
       this.isVisible = true;
       this.activateContainer();
       setTimeout(() => {
         this.loadProducts();
       }, 50);
+    } else {
+      this.isVisible = false;
     }
   }
 

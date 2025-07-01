@@ -1,4 +1,4 @@
 export const environment = {
-    apiURL: "http://localhost:8090",
+    apiURL: "http://ocalhost:8090",
     format: ".png"
 };

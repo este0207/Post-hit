@@ -8,7 +8,6 @@
     text-align: center;
     padding: 10px;
     height: 150px;
-    top: 15%;
     right: -100%;
     border-radius: 20px;
     transition: 0.5s;
@@ -37,7 +36,7 @@ ul *:hover{
 @media (max-width:679px){
     .burgerMenu{
         width: 30%;
-        top: 3%;
+        top: 120px;
     }
 
 

@@ -9,4 +9,10 @@ import { Link } from "../link/link";
 })
 export class BurgerMenu {
 
+  closeMenu(){
+    const burgerMenu = document.querySelector(".burgerMenu")
+    if (burgerMenu) {
+      burgerMenu.classList.remove("active");
+    }
+  }
 }

@@ -56,9 +56,12 @@ export class Form implements OnInit {
       const user = this.userService.currentUser();
       if (user) {
         this.successMessage = 'Connexion réussie !';
-        setTimeout(() => {
-          this.router.navigate(['/']);
-        }, 1500);
+        // Ne pas rediriger si on est déjà sur /success
+        if (this.router.url !== '/success') {
+          setTimeout(() => {
+            this.router.navigate(['/']);
+          }, 1500);
+        }
       }
     });
   }
@@ -98,6 +101,7 @@ export class Form implements OnInit {
           setTimeout(() => {
             if(form){
               form.classList.remove("active")
+              document.body.style.overflowY = "scroll";
             }
           }, 500);
         },
