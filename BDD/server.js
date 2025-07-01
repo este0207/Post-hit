@@ -27,7 +27,7 @@ if (!process.env.JWT_SECRET_KEY) {
     process.exit(1);
 }
 
-const host = "192.168.10.106";
+const host = "localhost";
 const PORT = 8090;
 const FRONTPORT = 4200;
 const YOUR_DOMAIN = `http://${host}:${FRONTPORT}`;
