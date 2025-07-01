@@ -28,7 +28,6 @@ export class Theme implements OnInit{
 
   }
 
-
   private handleRouteChange(): void {
     if (this.router.url === '/' || this.router.url === '/FullShop') {
       this.isVisible = true;

@@ -28,8 +28,8 @@ if (!process.env.JWT_SECRET_KEY) {
 }
 
 const host = "localhost";
-const PORT = "8090";
-const FRONTPORT = "4200"
+const PORT = 8090;
+const FRONTPORT = 4200;
 const YOUR_DOMAIN = `http://${host}:${FRONTPORT}`;
 
 const GOOGLE_CLIENT_ID = "220247244335-eu66pg82ffgefo7o235tg2dateq4g4bi.apps.googleusercontent.com";
@@ -89,8 +89,8 @@ async function main(){
             const session = await stripe.checkout.sessions.create({
                 line_items,
                 mode: 'payment',
-                success_url: `${YOUR_DOMAIN}/success.html`,
-                cancel_url: `${YOUR_DOMAIN}/cancel.html`,
+                success_url: `${YOUR_DOMAIN}/success`,
+                cancel_url: `${YOUR_DOMAIN}/cancel`,
             });
             res.json({ url: session.url });
         } catch (error) {
