@@ -5,18 +5,20 @@
         <p><strong>Email :</strong> {{email()}}</p>
         <p><strong>ID utilisateur :</strong> {{userId()}}</p>
     </div>
-    <form action="">
-        <label for="">Modifier votre nom</label>
-        <input type="text">
+    <form [formGroup]="profilForm" (ngSubmit)="onSubmit()">
+        <label for="username">Modifier votre nom</label>
+        <input id="username" type="text" formControlName="username">
 
-        <label for="">Modifier votre adresse mail</label>
-        <input type="email">
+        <label for="email">Modifier votre adresse mail</label>
+        <input id="email" type="email" formControlName="email">
 
-        <label for="">Modifier votre mot de passe</label>
-        <input type="password">
+        <label for="password">Modifier votre mot de passe</label>
+        <input id="password" type="password" formControlName="password">
 
-        <label for="">Confirmer votre mot de passe</label>
-        <input type="password">
+        <label for="confirmPassword">Confirmer votre mot de passe</label>
+        <input id="confirmPassword" type="password" formControlName="confirmPassword">
 
+        <button type="submit">Enregistrer</button>
+        <div *ngIf="message">{{message}}</div>
     </form>
 </div>

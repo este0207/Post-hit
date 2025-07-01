@@ -103,8 +103,10 @@ export class UserService {
       );
   }
 
-  updateUser(id: number, username: string, email: string): Observable<User> {
-    return this.http.put<User>(`${this.apiUrl}/users/${id}`, { username, email })
+  updateUser(id: number, username: string, email: string, password?: string): Observable<User> {
+    const body: any = { username, email };
+    if (password) body.password = password;
+    return this.http.put<User>(`${this.apiUrl}/update-user/${id}`, body)
       .pipe(
         tap(user => {
           this.userSignal.set(user);

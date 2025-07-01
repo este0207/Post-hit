@@ -27,7 +27,7 @@ if (!process.env.JWT_SECRET_KEY) {
     process.exit(1);
 }
 
-const host = "localhost";
+const host = "192.168.10.106";
 const PORT = 8090;
 const FRONTPORT = 4200;
 const YOUR_DOMAIN = `http://${host}:${FRONTPORT}`;
@@ -470,18 +470,18 @@ async function main(){
     server.put("/update-user/:id", async(req, res) => {
         try {
             const { id } = req.params;
-            const { username, email } = req.body;
+            const { username, email, password } = req.body;
             if (!id) {
                 return res.status(400).json("ID utilisateur manquant");
             }
-            if (!username && !email) {
+            if (!username && !email && !password) {
                 return res.status(400).json("Aucune donnée à mettre à jour");
             }
             const user = await userModel.getUserById(id);
             if (!user) {
                 return res.status(404).json("Utilisateur non trouvé");
             }
-            const updatedUser = await userModel.updateUser(id, username, email);
+            const updatedUser = await userModel.updateUser(id, username, email, password);
             if (!updatedUser) {
                 return res.status(409).json("Erreur lors de la mise à jour de l'utilisateur");
             }

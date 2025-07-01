@@ -1,15 +1,25 @@
 import { Component, computed, OnInit } from '@angular/core';
 import { UserService } from '../user-service';
-import { Navbar } from '../navbar/navbar';
+import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
 
 @Component({
   selector: 'app-user-profil',
-  imports: [Navbar],
+  imports: [ReactiveFormsModule],
   templateUrl: './user-profil.html',
   styleUrl: './user-profil.css'
 })
 export class UserProfil implements OnInit{
-  constructor(private userService: UserService) {}
+  profilForm: FormGroup;
+  message: string = '';
+
+  constructor(private userService: UserService, private fb: FormBuilder) {
+    this.profilForm = this.fb.group({
+      username: ['', Validators.required],
+      email: ['', [Validators.required, Validators.email]],
+      password: [''],
+      confirmPassword: ['']
+    });
+  }
 
   ngOnInit(): void {
     setTimeout(() => {
@@ -18,6 +28,14 @@ export class UserProfil implements OnInit{
         profilContainer.classList.toggle("active");
       }
     }, 700);
+    // Pré-remplir le formulaire avec les infos actuelles
+    const user = this.userService.currentUser();
+    if (user) {
+      this.profilForm.patchValue({
+        username: user.username,
+        email: user.email
+      });
+    }
   }
 
   username = computed(() => {
@@ -34,4 +52,27 @@ export class UserProfil implements OnInit{
     const user = this.userService.currentUser();
     return user?.id ?? '';
   });
+
+  onSubmit() {
+    if (this.profilForm.invalid) {
+      this.message = 'Veuillez remplir correctement le formulaire.';
+      return;
+    }
+    const { username, email, password, confirmPassword } = this.profilForm.value;
+    if (password && password !== confirmPassword) {
+      this.message = 'Les mots de passe ne correspondent pas.';
+      return;
+    }
+    const user = this.userService.currentUser();
+    if (user && user.id) {
+      this.userService.updateUser(user.id, username, email, password || undefined).subscribe({
+        next: () => {
+          this.message = 'Profil mis à jour avec succès !';
+        },
+        error: () => {
+          this.message = 'Erreur lors de la mise à jour.';
+        }
+      });
+    }
+  }
 }

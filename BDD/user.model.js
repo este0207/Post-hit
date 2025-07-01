@@ -103,7 +103,7 @@ export class User{
         }
     }
 
-    async updateUser(id, username, email) {
+    async updateUser(id, username, email, password) {
         try {
             // Vérifier si le username existe déjà pour un autre utilisateur
             const [existingUsers] = await this.client.execute(
@@ -115,10 +115,18 @@ export class User{
                 throw new Error('Ce nom d\'utilisateur est déjà pris');
             }
 
-            const [result] = await this.client.execute(
-                'UPDATE user SET username = ?, email = ? WHERE id = ?',
-                [username, email, id]
-            );
+            let query, params;
+            if (password) {
+                const saltRounds = 10;
+                const hashedPassword = await bcrypt.hash(password, saltRounds);
+                query = 'UPDATE user SET username = ?, email = ?, password = ? WHERE id = ?';
+                params = [username, email, hashedPassword, id];
+            } else {
+                query = 'UPDATE user SET username = ?, email = ? WHERE id = ?';
+                params = [username, email, id];
+            }
+
+            const [result] = await this.client.execute(query, params);
 
             if (result.affectedRows === 0) {
                 throw new Error('Utilisateur non trouvé');
