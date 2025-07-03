@@ -67,7 +67,8 @@ export class LikestProduct implements OnInit, OnDestroy{
         this.loadProducts();
       }, 50);
     } else {
-      this.isVisible = false;
+      this.isVisible = false
+      ;
     }
   }
 

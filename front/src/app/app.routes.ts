@@ -7,6 +7,7 @@ import { CGV } from './cgv/cgv';
 import { Contact } from './contact/contact';
 import { Payement } from './payement/payement';
 import { UserProfil } from './user-profil/user-profil';
+import { AboutUs } from './about-us/about-us';
 
 export const routes: Routes = [
     { path: '', 
@@ -40,6 +41,10 @@ export const routes: Routes = [
     { path: 'user-profil', 
         component: UserProfil,
         title: 'user-profil'
+    },
+    { path: 'about', 
+        component: AboutUs,
+        title: 'about'
     }
 ];
 

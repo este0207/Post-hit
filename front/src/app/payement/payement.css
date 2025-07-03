@@ -1,0 +1,35 @@
+.container{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    margin: 20px;
+    gap: 20px;
+}
+
+.payContainer{
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    padding: 10px;
+    border-radius: 20px;
+    background-color: antiquewhite;
+}
+
+.text{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    gap: 30px;
+    margin: 7rem 10px;
+}
+
+.image *{
+    border-radius: 20px;
+}
+.payContainer *{
+    display: flex;
+    justify-content: center;
+}

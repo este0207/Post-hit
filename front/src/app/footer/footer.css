@@ -25,7 +25,7 @@
     padding: 10px;
 }
 
-.cgv{
+.links{
     font-size: 15px;
     text-decoration: none;
 }
@@ -43,6 +43,10 @@ ul{
 a{
     color: black;
     font-size: 25px;
+}
+
+a:hover{
+    text-decoration: underline;
 }
 
 @media (max-width:600px){

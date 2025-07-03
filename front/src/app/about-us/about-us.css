@@ -1,0 +1,28 @@
+.aboutUs{
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+    background-color: antiquewhite;
+    margin: 10px;
+    border-radius: 20px;
+    gap: 3rem;
+    padding-bottom: 13px;
+}
+
+.title{
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    text-align: center;
+    margin: 20px;
+    padding-bottom: 1.5rem;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.21);
+}
+
+.desc{
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    border-bottom: 1px solid rgba(0, 0, 0, 0.21);
+    padding-bottom: 1.5rem;
+}
