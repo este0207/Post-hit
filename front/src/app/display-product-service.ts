@@ -3,6 +3,7 @@ import { UserService } from './user-service';
 import { CartService } from './cart-service';
 import { environment } from '../environments/environment';
 import { NotificationService } from './notification';
+import { Poster3DService } from './poster3-d-service';
 
 @Injectable({
   providedIn: 'root'
@@ -11,7 +12,8 @@ export class DisplayProductService {
   constructor(
     private userService: UserService,
     private cartService: CartService,
-    private notificationService: NotificationService
+    private notificationService: NotificationService,
+    private poster3DService: Poster3DService
   ) {}
 
   // Nouvelle méthode pour créer les éléments de la liste des produits
@@ -53,6 +55,7 @@ export class DisplayProductService {
         setTimeout(() => {
           document.body.style.overflow = "hidden";
         }, 500);
+        this.poster3DService.setImageName(element.product_name);
       });
     }
   }
@@ -87,21 +90,10 @@ export class DisplayProductService {
     
     // Vider le contenu existant
     const ProductDesc = document.querySelector('.ProductDesc') as HTMLElement;
-    const ProductImg = document.querySelector(".ProductImg") as HTMLElement;
+    // const ProductImg = document.querySelector(".ProductImg") as HTMLElement;
     
     if (ProductDesc) ProductDesc.innerHTML = '';
-    if (ProductImg) ProductImg.innerHTML = '';
-    
-    // Créer l'image du produit
-    const productImage = document.createElement('img');
-    productImage.src = product.product_name ? `${apiURL}/images/${product.product_name}${environment.format}` : `${apiURL}/images/placeholder${environment.format}`;
-    productImage.alt = product.product_name+'IMG' || 'ProduitIMG';
-    productImage.className = 'product-image2';
-    
-    // Gestion d'erreur pour les images
-    productImage.onerror = () => {
-      productImage.src = `${apiURL}/placeholder.png`;
-    };
+
     
     const productTitle = document.createElement('p');
     productTitle.innerText = product.product_name || 'Sans nom';
@@ -119,7 +111,7 @@ export class DisplayProductService {
     BuyBtn.innerText = 'ADD to Cart';
     BuyBtn.className = 'BuyBtn';
     
-    if (ProductImg) ProductImg.appendChild(productImage);
+    // if (ProductImg) ProductImg.appendChild(productImage);
     if (ProductDesc) {
       ProductDesc.appendChild(productTitle);
       ProductDesc.appendChild(productDesc);

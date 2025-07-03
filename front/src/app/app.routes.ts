@@ -8,6 +8,7 @@ import { Contact } from './contact/contact';
 import { Payement } from './payement/payement';
 import { UserProfil } from './user-profil/user-profil';
 import { AboutUs } from './about-us/about-us';
+import { Test3D } from './test3-d/test3-d';
 
 export const routes: Routes = [
     { path: '', 
@@ -45,6 +46,10 @@ export const routes: Routes = [
     { path: 'about', 
         component: AboutUs,
         title: 'about'
+    },
+    { path: 'test3D', 
+        component: Test3D,
+        title: 'test3D'
     }
 ];
 
