@@ -1,10 +1,12 @@
 import { Component, computed, OnInit } from '@angular/core';
+import { CommonModule } from '@angular/common';
 import { UserService } from '../user-service';
 import { FormBuilder, FormGroup, Validators, ReactiveFormsModule } from '@angular/forms';
+import { OrbitControls } from 'three-stdlib';
 
 @Component({
   selector: 'app-user-profil',
-  imports: [ReactiveFormsModule],
+  imports: [ReactiveFormsModule, CommonModule],
   templateUrl: './user-profil.html',
   styleUrl: './user-profil.css'
 })

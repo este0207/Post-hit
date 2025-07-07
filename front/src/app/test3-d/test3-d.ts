@@ -1,7 +1,7 @@
 import { Component, ElementRef, AfterViewInit, ViewChild, inject, OnDestroy } from '@angular/core';
 import * as THREE from 'three';
 // @ts-ignore
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls';
+import { OrbitControls } from 'three-stdlib';
 import { FetchService } from '../fetch-service';
 import { Poster3DService } from '../poster3-d-service';
 import { Subscription } from 'rxjs';
