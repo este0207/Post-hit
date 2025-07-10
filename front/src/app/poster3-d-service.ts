@@ -17,6 +17,7 @@ export class Poster3DService {
   public rendererContainer!: { nativeElement: HTMLElement };
   private imageNameSubject = new BehaviorSubject<string>('Portal In Out');
   imageName$ = this.imageNameSubject.asObservable();
+  private borderMaterials: THREE.MeshBasicMaterial[] = [];
 
   constructor(private fetchService: FetchService) { }
 
@@ -62,44 +63,31 @@ export class Poster3DService {
 
     // Charge la texture et ajoute le mesh à la scène
     const loader = new THREE.TextureLoader();
+    const borderColor = 0xff0000;
     loader.load(
       afficheUrl,
       (texture) => {
         const posterGeometry = new THREE.BoxGeometry(2, 3, 0.1);
-        const materials = [
-          new THREE.MeshBasicMaterial({ color: 0x222222 }), // droite
-          new THREE.MeshBasicMaterial({ color: 0x222222 }), // gauche
-          new THREE.MeshBasicMaterial({ color: 0x222222 }), // haut
-          new THREE.MeshBasicMaterial({ color: 0x222222 }), // bas
+        const borderMaterials = [
+          new THREE.MeshBasicMaterial({ color: borderColor }), // droite
+          new THREE.MeshBasicMaterial({ color: borderColor }), // gauche
+          new THREE.MeshBasicMaterial({ color: borderColor }), // haut
+          new THREE.MeshBasicMaterial({ color: borderColor }), // bas
           new THREE.MeshBasicMaterial({ map: texture }),    // avant (face visible)
-          new THREE.MeshBasicMaterial({ color: 0x222222 })  // arrière
+          new THREE.MeshBasicMaterial({ color: borderColor })  // arrière
         ];
-        const poster = new THREE.Mesh(posterGeometry, materials);
+        // Sauvegarde les matériaux de bordure pour pouvoir les modifier plus tard
+        this.borderMaterials = [
+          borderMaterials[0],
+          borderMaterials[1],
+          borderMaterials[2],
+          borderMaterials[3],
+          borderMaterials[5]
+        ];
+        const poster = new THREE.Mesh(posterGeometry, borderMaterials);
         poster.position.set(0, 0, 0);
         this.scene.add(poster);
 
-        // Ajout d'un cadre blanc autour de la face avant du poster
-        const width = 2;
-        const height = 3;
-        const depth = 0.1;
-        const borderThickness = 0.05;
-        const borderColor = 0xffffff; // blanc
-
-        // Bordures horizontales (haut et bas)
-        const horizontalBorderGeometry = new THREE.BoxGeometry(width + borderThickness * 2, borderThickness, borderThickness);
-        const topBorder = new THREE.Mesh(horizontalBorderGeometry, new THREE.MeshBasicMaterial({ color: borderColor }));
-        topBorder.position.set(0, height / 2 + borderThickness / 2, depth / 2 + borderThickness / 2);
-        const bottomBorder = new THREE.Mesh(horizontalBorderGeometry, new THREE.MeshBasicMaterial({ color: borderColor }));
-        bottomBorder.position.set(0, -height / 2 - borderThickness / 2, depth / 2 + borderThickness / 2);
-
-        // Bordures verticales (gauche et droite)
-        const verticalBorderGeometry = new THREE.BoxGeometry(borderThickness, height, borderThickness);
-        const leftBorder = new THREE.Mesh(verticalBorderGeometry, new THREE.MeshBasicMaterial({ color: borderColor }));
-        leftBorder.position.set(-width / 2 - borderThickness / 2, 0, depth / 2 + borderThickness / 2);
-        const rightBorder = new THREE.Mesh(verticalBorderGeometry, new THREE.MeshBasicMaterial({ color: borderColor }));
-        rightBorder.position.set(width / 2 + borderThickness / 2, 0, depth / 2 + borderThickness / 2);
-
-        this.scene.add(topBorder, bottomBorder, leftBorder, rightBorder);
       },
       undefined,
       (err) => {
@@ -110,5 +98,10 @@ export class Poster3DService {
 
   setImageName(name: string) {
     this.imageNameSubject.next(name);
+  }
+
+  setOutlineColor(color: string) {
+    const colorHex = new THREE.Color(color);
+    this.borderMaterials.forEach(mat => mat.color.set(colorHex));
   }
 }

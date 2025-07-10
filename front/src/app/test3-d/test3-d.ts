@@ -23,6 +23,7 @@ export class Test3D implements AfterViewInit, OnDestroy {
   private poster3DService = inject(Poster3DService);
   private imageNameSub!: Subscription;
   private currentPoster: THREE.Mesh | null = null;
+  private borderMaterials: THREE.MeshBasicMaterial[] = [];
 
   ngAfterViewInit() {
     this.imageNameSub = this.poster3DService.imageName$.subscribe(name => {
@@ -70,17 +71,8 @@ export class Test3D implements AfterViewInit, OnDestroy {
     // Ajout d'un poster initial
     await this.updatePosterTexture('Portal In Out');
 
-    // Création du cadre (border)
-    const borderThickness = 0.08; // épaisseur de la bordure
-    const borderGeometry = new THREE.BoxGeometry(
-      2 + borderThickness, // largeur du cadre
-      3 + borderThickness, // hauteur du cadre
-      0.13 // profondeur du cadre, un peu plus que le poster
-    );
-    const borderMaterial = new THREE.MeshBasicMaterial({ color: '#999999' });
-    const border = new THREE.Mesh(borderGeometry, borderMaterial);
-    border.position.set(0, 0, -0.02); // place le cadre juste derrière le poster
-    this.scene.add(border);
+    // SUPPRIMÉ : Création du cadre (border) séparé
+    // (On gère la bordure via les matériaux de la box)
 
     // Animation
     const animate = () => {
@@ -99,7 +91,7 @@ export class Test3D implements AfterViewInit, OnDestroy {
     });
     posterTexture.colorSpace = THREE.SRGBColorSpace;
     const borderColor = 0x222222;
-    const materials = [
+    const borderMaterials = [
       new THREE.MeshBasicMaterial({ color: borderColor }), // droite
       new THREE.MeshBasicMaterial({ color: borderColor }), // gauche
       new THREE.MeshBasicMaterial({ color: borderColor }), // haut
@@ -107,13 +99,25 @@ export class Test3D implements AfterViewInit, OnDestroy {
       new THREE.MeshBasicMaterial({ map: posterTexture }), // avant
       new THREE.MeshBasicMaterial({ color: borderColor })  // arrière
     ];
-    // Retire l'ancien poster si présent
+    this.borderMaterials = [
+      borderMaterials[0],
+      borderMaterials[1],
+      borderMaterials[2],
+      borderMaterials[3],
+      borderMaterials[5]
+    ];
+    // Retire l'ancien poster si présent 
     if (this.currentPoster) {
       this.scene.remove(this.currentPoster);
     }
-    const poster = new THREE.Mesh(posterGeometry, materials);
+    const poster = new THREE.Mesh(posterGeometry, borderMaterials);
     poster.position.set(0, 0, 0);
     this.scene.add(poster);
     this.currentPoster = poster;
+  }
+
+  setOutlineColor(color: string) {
+    const colorHex = new THREE.Color(color);
+    this.borderMaterials.forEach(mat => mat.color.set(colorHex));
   }
 }

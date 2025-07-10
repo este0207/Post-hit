@@ -18,6 +18,12 @@
     opacity: 1;
 }
 
+.colorDiv{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
 
 .ProducDiv{
     display: flex;

@@ -63,6 +63,14 @@
     margin: 0;
 }
 
+.colorDiv{
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    align-items: center;
+}
+
+
 .BuyBtn{
     width: 11rem;
     border-radius: 20px;

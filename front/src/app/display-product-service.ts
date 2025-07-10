@@ -90,7 +90,6 @@ export class DisplayProductService {
     
     // Vider le contenu existant
     const ProductDesc = document.querySelector('.ProductDesc') as HTMLElement;
-    // const ProductImg = document.querySelector(".ProductImg") as HTMLElement;
     
     if (ProductDesc) ProductDesc.innerHTML = '';
 
@@ -103,6 +102,26 @@ export class DisplayProductService {
     productDesc.innerText = product.product_desc || 'Aucune description disponible';
     productDesc.className = 'product-desc';
 
+    const colorDiv = document.createElement('div');
+    colorDiv.className = 'colorDiv';
+
+    const colorP = document.createElement('p');
+    colorP.innerText = 'Change Color :'
+    
+    const colorInput = document.createElement('input');
+    colorInput.type = 'color';
+    colorInput.value = '#ffffff'; // Couleur par défaut
+    colorInput.className = 'color-picker';
+
+    colorInput.addEventListener('input', (event) => {
+      const color = (event.target as HTMLInputElement).value;
+      this.poster3DService.setOutlineColor(color);
+    });
+    
+    if(colorDiv){
+      colorDiv.appendChild(colorP);
+      colorDiv.appendChild(colorInput);
+    }
     const productPrice = document.createElement('p');
     productPrice.innerText = product.product_price ? product.product_price+'€' : 'Prix non disponible';
     productPrice.className = 'product-price';
@@ -111,9 +130,9 @@ export class DisplayProductService {
     BuyBtn.innerText = 'ADD to Cart';
     BuyBtn.className = 'BuyBtn';
     
-    // if (ProductImg) ProductImg.appendChild(productImage);
     if (ProductDesc) {
       ProductDesc.appendChild(productTitle);
+      ProductDesc.appendChild(colorDiv);
       ProductDesc.appendChild(productDesc);
       ProductDesc.appendChild(productPrice);
       ProductDesc.appendChild(BuyBtn);
