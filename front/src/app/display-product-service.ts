@@ -110,7 +110,7 @@ export class DisplayProductService {
     
     const colorInput = document.createElement('input');
     colorInput.type = 'color';
-    colorInput.value = '#ffffff'; // Couleur par défaut
+    colorInput.value = '#ffffff';
     colorInput.className = 'color-picker';
 
     colorInput.addEventListener('input', (event) => {
