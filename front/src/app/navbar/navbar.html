@@ -1,22 +1,25 @@
-<div class="nav">
-  <div class="logo">
-    <a routerLink="/"><img src="/post'hit_logo.png" alt="post'hit_logo"></a>
+<nav class="navbar">
+  <div class="navbar__logo">
+    <a routerLink="/">
+      <img src="/post'hit_logo.png" alt="Post'Hit Logo">
+    </a>
   </div>
-  <div class="links">
-    <ul>
-      <app-searcbar></app-searcbar>
-       <app-link link_icon="fa-solid fa-magnifying-glass" (click)="useSearch()"></app-link>
-       <div class="icons">
-        <app-link link_text="Shop" link_url="/FullShop"></app-link>
-        <app-link link_text="Login" (click)="userForm()" *ngIf="!isLoggedIn()" ></app-link>
-        <p routerLink="/user-profil">{{username()}}</p>
-        <app-link link_icon="fa-solid fa-cart-shopping" link_url="/cart"></app-link>
-        <app-link link_icon="fa-solid fa-heart"></app-link>
-        <button *ngIf="isLoggedIn()" (click)="logout()" class="logout-btn">Se déconnecter</button>
-      </div>
-      <div class="mobilIcons">
-        <app-link link_icon="fa-solid fa-bars" (click)="ShowMenu()"></app-link>
-      </div>
-    </ul>
+  <ul class="navbar__links">
+    <li><app-link link_text="Shop" link_url="/FullShop"></app-link></li>
+    <li><app-link link_text="Contact" link_url="/contact"></app-link></li>
+    <li><app-link link_text="À propos" link_url="/about"></app-link></li>
+    <li><app-link link_text="CGV" link_url="/CGV"></app-link></li>
+  </ul>
+  <div class="navbar__icons">
+    <app-searcbar></app-searcbar>
+    <app-link link_icon="fa-solid fa-magnifying-glass" (click)="useSearch()"></app-link>
+    <app-link link_icon="fa-solid fa-cart-shopping" link_url="/cart"></app-link>
+    <app-link link_icon="fa-solid fa-heart"></app-link>
+    <app-link link_text="Login" (click)="userForm()" *ngIf="!isLoggedIn()"></app-link>
+    <p routerLink="/user-profil">{{username()}}</p>
+    <button *ngIf="isLoggedIn()" (click)="logout()" class="logout-btn">Se déconnecter</button>
   </div>
-</div>
+  <div class="navbar__burger" (click)="ShowMenu()">
+    <app-link link_icon="fa-solid fa-bars"></app-link>
+  </div>
+</nav>

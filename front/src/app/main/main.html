@@ -1,11 +1,11 @@
-<div class="main" *ngIf="isVisible">
-    <div class="text">
-        <h2>Affirmez votre style, un mur à la fois.</h2>
-        <p>Découvrez notre collection exclusive de posters design, artistiques et inspirants. Parfaits pour sublimer votre intérieur avec originalité. Qualité premium, livraison rapide — transformez vos murs dès aujourd’hui.</p>
-        <app-button></app-button>
-    </div>
-    <div class="affiche">
-        <img src="/affiche_toulon.png" alt="poster_img">
-    </div>
-</div>
+<section class="hero" *ngIf="isVisible">
+  <div class="hero__content">
+    <h1>Affirmez votre style,<br>un mur à la fois.</h1>
+    <p class="hero__subtitle">Découvrez notre collection exclusive de posters design, artistiques et inspirants.<br>Qualité premium, livraison rapide — transformez vos murs dès aujourd’hui.</p>
+    <button class="button hero__cta" routerLink="/FullShop">Découvrir la collection</button>
+  </div>
+  <div class="hero__image">
+    <img src="/affiche_toulon.png" alt="Poster tendance">
+  </div>
+</section>
 <app-theme></app-theme>

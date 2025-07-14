@@ -1,63 +1,86 @@
-.footerContainer{
-    display: flex;
+/* --- Footer Nike Style --- */
+.footer {
+  background: var(--color-black);
+  color: var(--color-white);
+  padding: 3em 0 1.2em 0;
+  width: 100%;
+  margin-top: auto;
+  box-shadow: 0 -2px 16px rgba(0,0,0,0.10);
+}
+
+.footer__content {
+  display: flex;
+  justify-content: center;
+  gap: 4em;
+  max-width: 1200px;
+  margin: 0 auto 1.5em auto;
+  flex-wrap: wrap;
+}
+
+.footer__col {
+  min-width: 180px;
+  flex: 1 1 220px;
+}
+
+.footer__col h3 {
+  font-family: var(--font-title);
+  font-size: 1.2em;
+  margin-bottom: 1em;
+  color: var(--color-accent);
+  letter-spacing: 0.04em;
+}
+
+.footer__col ul {
+  list-style: none;
+  padding: 0;
+  margin: 0 0 1em 0;
+}
+.footer__col ul li {
+  margin-bottom: 0.7em;
+  font-size: 1em;
+  font-family: var(--font-body);
+}
+.footer__col a {
+  color: var(--color-white);
+  text-decoration: none;
+  transition: color 0.2s;
+}
+.footer__col a:hover {
+  color: var(--color-accent);
+  text-decoration: underline;
+}
+
+.footer__socials {
+  display: flex;
+  gap: 1.2em;
+  margin-top: 0.5em;
+}
+.footer__socials a {
+  font-size: 2em;
+  color: var(--color-white);
+  transition: color 0.2s, transform 0.2s;
+}
+.footer__socials a:hover {
+  color: var(--color-accent);
+  transform: scale(1.15) rotate(-8deg);
+}
+
+.footer__bottom {
+  text-align: center;
+  font-size: 1em;
+  color: var(--color-gray-light);
+  letter-spacing: 0.03em;
+}
+
+@media (max-width: 800px) {
+  .footer__content {
     flex-direction: column;
-    flex-shrink: 0;
-    background-color: antiquewhite;
-    margin: 10px;
-    padding: 10px;
-    opacity: 0;
-    transition: 0.5s;
-    border-radius: 20px;
-}
-
-.footerContainer.active{
-    opacity: 1;
-}
-
-.footerLinks{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr;
-}
-
-.footerReserved{
-    display: flex;
-    justify-content: center;
-    padding: 10px;
-}
-
-.links{
-    font-size: 15px;
-    text-decoration: none;
-}
-
-ul{
-    display: flex;
-    flex-direction: column;
-    list-style-type: none;
-    gap: 5px;
     align-items: center;
-    border-left: 1px solid rgba(0, 0, 0, 0.175);
-    border-right: 1px solid rgba(0, 0, 0, 0.175);
-}
-
-a{
-    color: black;
-    font-size: 25px;
-}
-
-a:hover{
-    text-decoration: underline;
-}
-
-@media (max-width:600px){
-    .footerContainer{
-        gap: 10px;
-    }
-    .footerLinks{
-        grid-template-columns: 1fr;
-        gap: 30px;
-    }
-    ul{
-        border: none;
-    }
+    gap: 2em;
+  }
+  .footer__col {
+    min-width: 0;
+    width: 100%;
+    text-align: center;
+  }
 }

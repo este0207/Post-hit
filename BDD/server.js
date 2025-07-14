@@ -690,6 +690,35 @@ async function main(){
         }
     });
 
+    // --------- envoie de mail depuis le formulaire de contact ---------- //
+    server.post("/send-mail-contact", async (req, res) => {
+        try {
+            const { email, message } = req.body;
+            if (!email || !message) {
+                return res.status(400).json({ message: "Email et message requis" });
+            }
+            const transporter = nodemailer.createTransport({
+                service: 'gmail',
+                auth: {
+                    user: process.env.GMAIL_USER,
+                    pass: process.env.GMAIL_PASS
+                }
+            });
+            const info = await transporter.sendMail({
+                from: email,
+                to: process.env.GMAIL_USER, // L'adresse de contact de l'entreprise
+                subject: "Nouveau message de contact Post'hit",
+                text: message,
+                html: `<p><strong>Message de :</strong> ${email}</p><p>${message.replace(/\n/g, '<br>')}</p>`
+            });
+            console.log("Contact message sent:", info.messageId);
+            res.json({ message: "Message de contact envoyé avec succès" });
+        } catch (error) {
+            console.error(error);
+            res.status(500).json({ message: "Erreur lors de l'envoi du message de contact" });
+        }
+    });
+
     // --------  Server listen  --------- //
     server.listen(PORT, ()=>{
         console.log("server listen on "+host+":"+PORT)

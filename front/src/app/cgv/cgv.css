@@ -1,12 +1,74 @@
-.cgv{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    background-color: antiquewhite;
-    margin: 15px;
-    border-radius: 20px;
-    gap: 30px;
-    padding: 20px;
+/* --- CGV Nike Style --- */
+body {
+  background: var(--color-black);
+}
+
+.cgv {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: left;
+  background: var(--color-white);
+  margin: 32px auto;
+  border-radius: 28px;
+  gap: 30px;
+  padding: 3em 2vw 2em 2vw;
+  max-width: 900px;
+  box-shadow: 0 8px 32px rgba(17,17,17,0.18);
+  animation: fadeInCGV 1.1s cubic-bezier(.4,0,.2,1);
+}
+@keyframes fadeInCGV {
+  from { opacity: 0; transform: translateY(40px); }
+  to { opacity: 1; transform: none; }
+}
+
+.cgv h1 {
+  font-family: var(--font-title);
+  font-size: 2.2em;
+  color: var(--color-accent);
+  font-weight: 800;
+  margin-bottom: 0.5em;
+  text-align: center;
+}
+.cgv h2 {
+  font-family: var(--font-title);
+  color: var(--color-accent);
+  font-size: 1.2em;
+  margin-top: 1.5em;
+  margin-bottom: 0.5em;
+  font-weight: 700;
+}
+.cgv p, .cgv ul, .cgv address {
+  color: var(--color-black);
+  font-size: 1.05em;
+  margin-bottom: 1em;
+  line-height: 1.6;
+}
+.cgv ul {
+  padding-left: 1.5em;
+}
+.cgv .maj {
+  color: var(--color-gray-dark);
+  font-size: 1em;
+  margin-bottom: 1.5em;
+  text-align: center;
+}
+.cgv address {
+  font-style: normal;
+  background: var(--color-gray-light);
+  border-radius: 12px;
+  padding: 1em 1.5em;
+  margin-top: 1.5em;
+}
+
+@media (max-width: 700px) {
+  .cgv {
+    padding: 1.5em 2vw 1em 2vw;
+    border-radius: 0;
+    margin: 8px auto;
+  }
+  .cgv h1 {
+    font-size: 1.4em;
+  }
 }

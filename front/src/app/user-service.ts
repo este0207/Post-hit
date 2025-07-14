@@ -158,4 +158,8 @@ export class UserService {
   sendMail(email: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/send-mail`, { email });
   }
+
+  sendMailContact(email: string, message: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/send-mail-contact`, { email, message });
+  }
 }
