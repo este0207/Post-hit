@@ -1,17 +1,19 @@
-/* --- Footer Nike Style --- */
+
+
 .footer {
-  background: var(--color-black);
-  color: var(--color-white);
+  background: linear-gradient(90deg, #f8f8ff 0%, #e6e6fa 100%);
+  color: #7b2ff2;
   padding: 3em 0 1.2em 0;
   width: 100%;
   margin-top: auto;
-  box-shadow: 0 -2px 16px rgba(0,0,0,0.10);
+  box-shadow: 0 -2px 16px rgba(123,47,242,0.06);
+  font-family: 'Inter', Arial, sans-serif;
 }
 
 .footer__content {
   display: flex;
   justify-content: center;
-  gap: 4em;
+  gap: 3em;
   max-width: 1200px;
   margin: 0 auto 1.5em auto;
   flex-wrap: wrap;
@@ -20,13 +22,23 @@
 .footer__col {
   min-width: 180px;
   flex: 1 1 220px;
+  background: #fff;
+  border-radius: 18px;
+  box-shadow: 0 2px 12px rgba(123,47,242,0.07);
+  padding: 2em 1.5em 1.2em 1.5em;
+  margin: 0 0.5em;
+  text-align: left;
 }
 
 .footer__col h3 {
-  font-family: var(--font-title);
-  font-size: 1.2em;
+  font-size: 1.18em;
   margin-bottom: 1em;
-  color: var(--color-accent);
+  background: linear-gradient(90deg, #7b2ff2, #f357a8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  font-weight: 800;
   letter-spacing: 0.04em;
 }
 
@@ -38,15 +50,16 @@
 .footer__col ul li {
   margin-bottom: 0.7em;
   font-size: 1em;
-  font-family: var(--font-body);
+  font-weight: 500;
 }
 .footer__col a {
-  color: var(--color-white);
+  color: #7b2ff2;
   text-decoration: none;
   transition: color 0.2s;
+  font-weight: 600;
 }
 .footer__col a:hover {
-  color: var(--color-accent);
+  color: #f357a8;
   text-decoration: underline;
 }
 
@@ -57,19 +70,20 @@
 }
 .footer__socials a {
   font-size: 2em;
-  color: var(--color-white);
+  color: #7b2ff2;
   transition: color 0.2s, transform 0.2s;
 }
 .footer__socials a:hover {
-  color: var(--color-accent);
+  color: #f357a8;
   transform: scale(1.15) rotate(-8deg);
 }
 
 .footer__bottom {
   text-align: center;
   font-size: 1em;
-  color: var(--color-gray-light);
+  color: #888;
   letter-spacing: 0.03em;
+  margin-top: 1.5em;
 }
 
 @media (max-width: 800px) {
@@ -82,5 +96,6 @@
     min-width: 0;
     width: 100%;
     text-align: center;
+    margin: 0 0 1em 0;
   }
 }

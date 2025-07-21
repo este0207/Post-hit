@@ -1,11 +1,27 @@
 <section class="hero" *ngIf="isVisible">
   <div class="hero__content">
-    <h1>Affirmez votre style,<br>un mur à la fois.</h1>
-    <p class="hero__subtitle">Découvrez notre collection exclusive de posters design, artistiques et inspirants.<br>Qualité premium, livraison rapide — transformez vos murs dès aujourd’hui.</p>
-    <button class="button hero__cta" routerLink="/FullShop">Découvrir la collection</button>
+    <span class="hero__badge">Nouvelle Collection 2025</span>
+    <h1>
+      <span class="hero__title-main">Posters d’Art</span>
+      <span class="hero__title-3d">en 3D</span>
+    </h1>
+    <p class="hero__subtitle">Découvrez notre collection unique de posters avec prévisualisation 3D interactive.<br>Transformez votre espace avec des œuvres d’art soigneusement sélectionnées.</p>
+    <div class="hero__cta-group">
+      <button class="button hero__cta-primary" routerLink="/FullShop">Découvrir la Collection</button>
+      <button class="button hero__cta-secondary" routerLink="/FullShop">Voir en 3D</button>
+    </div>
+    <div class="hero__features">
+      <div class="feature"><i class="fa-solid fa-cube"></i> Vue 3D Interactive</div>
+      <div class="feature"><i class="fa-solid fa-cart-shopping"></i> Achat Simplifié</div>
+    </div>
   </div>
   <div class="hero__image">
     <img src="/affiche_toulon.png" alt="Poster tendance">
   </div>
 </section>
+<div class="hero__stats">
+  <div><span>500+</span><br>Posters Uniques</div>
+  <div><span>10k+</span><br>Clients Satisfaits</div>
+  <div><span>24h</span><br>Support Réactif</div>
+</div>
 <app-theme></app-theme>

@@ -601,24 +601,20 @@ async function main(){
     
     server.post("/upload", async (req,res)=>{
         console.log(req.files)
-        // Le fichier s'appelle "image" à cause du name de la balise <input>
-        // <input type="file" name="image" id="image">
         const image = req.files.image;  
         
         if(image == undefined){
             res.status(400).json({msg : "No image sent by the client"})
             return;
         }
-        // Je forme un nom unique pour le fichier, cette étape n'est pas obligatoire.
+
         const extensionFile = image.name.split(".")[1];
         const fileName = image.name.split(".")[0];
         const completeFileName = `${fileName}_${Date.now()}.${extensionFile}`;
 
-        // J'utilise la fonction mv() pour uploader le fichier
-        // dans le dossier /public du répertoire courant
         image.mv(`${__dirname}/public/${completeFileName}`);
 
-        // Je renvoi l'url final au client
+
         res.json({url : `http://${host}:${PORT}/${completeFileName}`});
     });
 

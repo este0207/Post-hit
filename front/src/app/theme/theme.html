@@ -1,5 +1,10 @@
 <div class="themecontainer" *ngIf="isVisible">
+  <div class="theme-track">
     <div class="theme" *ngFor="let element of categories" (click)="onCategoryClick(element)">
-        <p>{{ element.categorie_name || 'Sans nom' }}</p>
-      </div>
+      <p>{{ element.categorie_name || 'Sans nom' }}</p>
+    </div>
+    <div class="theme" *ngFor="let element of categories" (click)="onCategoryClick(element)">
+      <p>{{ element.categorie_name || 'Sans nom' }}</p>
+    </div>
+  </div>
 </div>

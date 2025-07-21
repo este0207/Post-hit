@@ -1,95 +1,106 @@
-.likesproductsContainer{
-    display: grid;
-    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
-    justify-content: center;
-    align-items: center;
-    padding: 2rem;
-    min-height: 100vh;
-    place-items: center;
-    background-color: rgb(0, 0, 0);
-    /* margin: 0 10px; */
-    /* border-radius: 20px; */
-    opacity: 0;
-    transition: 0.5s;
+
+
+.likesproductsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 2.2em;
+  justify-content: center;
+  align-items: stretch;
+  padding: 3em 2vw;
+  min-height: 70vh;
+  background: linear-gradient(120deg, #f8f8ff 0%, #e6e6fa 100%);
+  box-shadow: 0 4px 32px rgba(123,47,242,0.06);
+  opacity: 0;
+  transition: opacity 0.5s;
+  font-family: 'Inter', Arial, sans-serif;
+}
+.likesproductsContainer.active {
+  opacity: 1;
 }
 
-.likesproductsContainer.active{
-    opacity: 1;
+.ProducDiv {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  background: #fff;
+  border-radius: 22px;
+  box-shadow: 0 4px 18px rgba(123,47,242,0.08);
+  padding: 1.5em 1.2em 1.2em 1.2em;
+  margin: 0 auto;
+  min-width: 0;
+  max-width: 340px;
+  transition: box-shadow 0.25s, transform 0.25s;
 }
-
-.colorDiv{
-    display: flex;
-    gap: 10px;
-    justify-content: center;
-    align-items: center;
-}
-
-.ProducDiv{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    width: 10rem;
-    max-width: 400px;
-    height: 300px;
-    border-radius: 20px;
-    transition: 0.5s;
-    margin: 10px;
-    background-color: white;
-    padding: 10px;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-}
-
-.ProducDiv:hover{
-    transform: scale(1.05);
-    cursor: pointer;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+.ProducDiv:hover {
+  transform: translateY(-6px) scale(1.03);
+  box-shadow: 0 12px 32px rgba(123,47,242,0.16);
+  cursor: pointer;
 }
 
 .product-image {
-    width: 100%;
-    height: 200px;
-    object-fit:contain;
-    border-radius: 10px;
-    margin-bottom: 1rem;
-}
-
-.product-image2{
-    width: 100%;
-    max-width: 320px;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.12);
+  width: 100%;
+  height: 200px;
+  object-fit: contain;
+  border-radius: 14px;
+  margin-bottom: 1.1em;
+  background: #f3f0fa;
+  box-shadow: 0 2px 8px rgba(123,47,242,0.07);
 }
 
 .product-name {
-    font-size: 1.1rem;
-    font-weight: bold;
-    text-align: center;
-    color: #333;
-    margin: 0;
+  font-size: 1.18em;
+  font-weight: 700;
+  text-align: center;
+  color: #7b2ff2;
+  margin: 0.5em 0 0.7em 0;
+  letter-spacing: 0.01em;
 }
 
-.BuyBtn{
-    width: 11rem;
-    border-radius: 20px;
-    height: 40px;
-    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
-    border: none;
-    transition: 0.5s;
-    background: linear-gradient(135deg, #eacb66 0%, #d6c48f 100%);
+.BuyBtn {
+  width: 100%;
+  max-width: 220px;
+  border-radius: 22px;
+  height: 44px;
+  border: none;
+  font-size: 1.08em;
+  font-weight: 700;
+  color: #fff;
+  background: linear-gradient(90deg, #f357a8, #7b2ff2);
+  box-shadow: 0 4px 15px rgba(123,47,242,0.10);
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s, transform 0.18s;
+  margin-top: 0.7em;
+  cursor: pointer;
+}
+.BuyBtn:hover {
+  background: linear-gradient(90deg, #7b2ff2, #f357a8);
+  color: #fff;
+  box-shadow: 0 8px 24px rgba(243,87,168,0.13);
+  transform: translateY(-2px) scale(1.04);
 }
 
-.BuyBtn:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.3);
-    cursor: pointer;
-    background: linear-gradient(135deg, #eacb66 0%, #b7a779 100%);
+.colorDiv {
+  display: flex;
+  gap: 10px;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: 0.7em;
 }
 
-@media (max-width:679px){
-    .likesproductsContainer{
-        grid-template-columns: 1fr 1fr;
-        padding: 2rem;
-    }
-
+@media (max-width: 900px) {
+  .likesproductsContainer {
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 1.2em;
+    padding: 2em 1vw;
+  }
+  .ProducDiv {
+    max-width: 98vw;
+    padding: 1em 0.5em 1em 0.5em;
+  }
+}
+@media (max-width: 600px) {
+  .likesproductsContainer {
+    grid-template-columns: 1fr;
+    padding: 1em 0.5em;
+  }
 }

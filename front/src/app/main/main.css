@@ -1,19 +1,19 @@
-/* --- Hero Banner Nike Style --- */
+
 .hero {
   display: flex;
   align-items: center;
   justify-content: center;
-  min-height: 80vh;
+  min-height: 90vh;
   width: 100%;
-  max-width: 1350px;
-  margin: 2.5vw auto 2vw auto;
-  background: var(--color-black);
+  background: linear-gradient(120deg, #7b2ff2 0%, #3c8ce7 100%);
   border-radius: 28px;
   box-shadow: 0 8px 32px rgba(17,17,17,0.18);
   padding: 2vw 3vw;
   gap: 4vw;
   animation: fadeInHero 1.1s cubic-bezier(.4,0,.2,1);
   box-sizing: border-box;
+  position: relative;
+  overflow: hidden;
 }
 
 @keyframes fadeInHero {
@@ -21,38 +21,114 @@
   to { opacity: 1; transform: none; }
 }
 
+@keyframes floatY {
+  0%   { transform: translateY(0); }
+  50%  { transform: translateY(30px); }
+  100% { transform: translateY(0); }
+}
+
+.hero__badge {
+  display: inline-block;
+  background: linear-gradient(90deg, #f357a8, #ffb86c);
+  color: #fff;
+  font-weight: 700;
+  font-size: 1em;
+  padding: 0.35em 1.2em;
+  border-radius: 18px;
+  margin-bottom: 1.2em;
+  letter-spacing: 0.04em;
+  box-shadow: 0 2px 8px rgba(243,87,168,0.10);
+}
+
 .hero__content {
   flex: 1 1 420px;
-  color: var(--color-white);
+  color: #fff;
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 2.2em;
+  gap: 1.5em;
   z-index: 2;
 }
 .hero__content h1 {
-  font-family: var(--font-title);
-  font-size: 2.8em;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 3.1em;
   font-weight: 800;
   line-height: 1.1;
   margin-bottom: 0.3em;
-  color: var(--color-white);
   letter-spacing: 0.01em;
   text-shadow: 0 2px 12px rgba(0,0,0,0.18);
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.hero__title-main {
+  color: #fff;
+}
+.hero__title-3d {
+  color: #ffb86c;
+  background: linear-gradient(90deg, #ffb86c, #f357a8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-fill-color: transparent;
+  font-weight: 900;
 }
 .hero__subtitle {
   font-size: 1.25em;
-  color: var(--color-gray-light);
+  color: #e6e6e6;
   margin-bottom: 1.2em;
   line-height: 1.5;
+  font-weight: 500;
 }
-.hero__cta {
-  margin-top: 1.2em;
-  font-size: 1.2em;
-  padding: 1em 2.5em;
+.hero__cta-group {
+  display: flex;
+  gap: 1.2em;
+  margin-bottom: 1.2em;
+}
+.hero__cta-primary {
+  background: linear-gradient(90deg, #f357a8, #7b2ff2);
+  color: #fff;
+  font-weight: 700;
+  border: none;
   border-radius: 40px;
-  box-shadow: 0 4px 18px rgba(255,60,0,0.10);
-  letter-spacing: 0.04em;
+  padding: 1em 2.5em;
+  font-size: 1.15em;
+  box-shadow: 0 4px 18px rgba(123,47,242,0.10);
+  cursor: pointer;
+  transition: 0.5s;
+}
+.hero__cta-primary:hover {
+  background: linear-gradient(90deg, #7b2ff2, #f357a8);
+  box-shadow: 0 8px 32px rgba(123,47,242,0.18);
+}
+.hero__cta-secondary {
+  background: #fff;
+  color: #7b2ff2;
+  font-weight: 700;
+  border: none;
+  border-radius: 40px;
+  padding: 1em 2.5em;
+  font-size: 1.15em;
+  box-shadow: 0 4px 18px rgba(60,140,231,0.10);
+  cursor: pointer;
+  transition: background 0.18s, color 0.18s, box-shadow 0.18s;
+}
+.hero__cta-secondary:hover {
+  background: #f357a8;
+  color: #fff;
+  box-shadow: 0 8px 32px rgba(243,87,168,0.18);
+}
+.hero__features {
+  display: flex;
+  gap: 2em;
+  margin-top: 1.2em;
+  font-size: 1.08em;
+  color: #fff;
+  font-weight: 600;
+}
+.hero__features .feature i {
+  margin-right: 0.5em;
+  color: #ffb86c;
 }
 
 .hero__image {
@@ -66,13 +142,35 @@
   width: 370px;
   max-width: 90vw;
   border-radius: 22px;
-  box-shadow: 0 8px 40px rgba(255,60,0,0.13), 0 2px 16px rgba(0,0,0,0.18);
-  background: var(--color-white);
+  box-shadow: 0 8px 40px rgba(123,47,242,0.13), 0 2px 16px rgba(0,0,0,0.18);
+  background: #fff;
   transition: transform 0.25s, box-shadow 0.25s;
+  animation: floatY 5s ease-in-out infinite;
 }
-.hero__image img:hover {
-  transform: scale(1.04) rotate(-2deg);
-  box-shadow: 0 16px 60px rgba(255,60,0,0.18), 0 4px 24px rgba(0,0,0,0.22);
+
+.hero__stats {
+  display: flex;
+  justify-content: center;
+  gap: 4vw;
+  margin: 2.5em auto 0 auto;
+  max-width: 900px;
+  font-family: 'Inter', Arial, sans-serif;
+  font-size: 1.25em;
+  color: #fff;
+  text-align: center;
+  margin-bottom: 50px;
+}
+.hero__stats div {
+  background: rgba(60,140,231,0.13);
+  border-radius: 18px;
+  padding: 1.2em 2.2em;
+  box-shadow: 0 2px 12px rgba(60,140,231,0.08);
+  font-weight: 700;
+}
+.hero__stats span {
+  font-size: 2em;
+  color: #ffb86c;
+  font-weight: 900;
 }
 
 @media (max-width: 1300px) {
@@ -97,5 +195,13 @@
   .hero__content {
     align-items: center;
     text-align: center;
+  }
+  .hero__stats {
+    flex-direction: column;
+    gap: 1.2em;
+    font-size: 1.1em;
+  }
+  .hero__stats div {
+    padding: 1em 1.2em;
   }
 }
