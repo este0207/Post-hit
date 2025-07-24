@@ -2,17 +2,10 @@
 import { Headers } from 'node-fetch';
 global.Headers = Headers;
 
-import { User } from "./models/user.model.js";
-import { ProductModel } from "./product.model.js";
-import { CategorieModel } from "./models/categorie.model.js";
-import { Cart } from "./models/cart.model.js";
 import express from "express";
 import cors from "cors";
-import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
-import bcrypt from "bcrypt"
 import fileUpload from "express-fileupload";
-import { BestsellingModel } from "./models/bestselling.model.js";
 
 dotenv.config();
 
@@ -25,18 +18,10 @@ if (!process.env.JWT_SECRET_KEY) {
 const host = "localhost";
 const PORT = 8090;
 const FRONTPORT = 4200;
-const YOUR_DOMAIN = `http://${host}:${FRONTPORT}`;
 
 
 async function main(){
     console.log("server listen"+host+"on port:"+PORT);
-
-    const userModel = new User(client);
-    const productModel = new ProductModel(client);
-    const bestsellingModel = new BestsellingModel(client);
-    const categorieModel = new CategorieModel(client);
-
-    const cartModel = new Cart(client);
 
     const server = express();
     
