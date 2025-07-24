@@ -1,8 +1,8 @@
 
-import { Bestselling } from '../models/bestselling.model.js';
+import { BestsellingModel } from '../models/bestselling.model.js';
 import db from '../config/db.js';
 
-const bestsellingModel = new Bestselling(db);
+const bestsellingModel = new BestsellingModel(db);
 
 export const getAllBestselling = async (req, res) => {
   try {

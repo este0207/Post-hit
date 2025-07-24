@@ -1,5 +1,5 @@
 import bcrypt from 'bcrypt'
-export class User{
+export class UserModel{
     constructor(clientSQL){
         this.client = clientSQL;
         this.client.execute(`

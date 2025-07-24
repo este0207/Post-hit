@@ -1,10 +1,10 @@
 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
-import { User } from '../models/user.model.js';
+import { UserModel } from '../models/user.model.js';
 import db from '../config/db.js';
 
-const userModel = new User(db);
+const userModel = new UserModel(db);
 
 const StrongPassword = /^(?=.*?[0-9])(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[^0-9A-Za-z]).{8,16}$/;
 

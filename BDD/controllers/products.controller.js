@@ -1,12 +1,12 @@
 // controllers/product.controller.js
-import { Product } from '../models/product.model.js';
+import { ProductModel } from '../models/product.model.js';
 import db from '../config/db.js';
 
-const productModel = new Product(db);
+const productModel = new ProductModel(db);
 
 export const getAllProducts = async (req, res) => {
   try {
-    const products = await productModel.getAllProduct();
+    const products = await productModel.getAllProducts();
     if (!products || products.length === 0) return res.status(404).json("Aucun produit trouvé");
     res.json(products);
   } catch (err) {

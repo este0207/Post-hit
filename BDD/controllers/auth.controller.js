@@ -1,6 +1,6 @@
 import jwt from 'jsonwebtoken';
 import { googleClient, GOOGLE_CLIENT_ID } from '../config/google-auth.js'; 
-import { userModel } from '../models/user.model.js';
+import { UserModel } from '../models/user.model.js';
 
 export const googleLogin = async (req, res) => {
   const { credential } = req.body;

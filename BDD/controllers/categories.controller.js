@@ -1,8 +1,8 @@
 
-import { Categories } from '../models/categories.model.js';
+import { CategorieModel } from '../models/categorie.model.js';
 import db from '../config/db.js';
 
-const categoriesModel = new Categories(db);
+const categoriesModel = new CategorieModel(db);
 
 export const getAllCategories = async (req, res) => {
   try {

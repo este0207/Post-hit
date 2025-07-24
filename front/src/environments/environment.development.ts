@@ -1,4 +1,4 @@
 export const environment = {
-    apiURL: "https://api.posthit.fr",
+    apiURL: "http://localhost:8090",
     format: ".png"
 };
