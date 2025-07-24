@@ -1,8 +1,6 @@
-import { Component, OnInit} from '@angular/core';
-import { Button } from '../button/button';
+import { Component, OnInit } from '@angular/core';
 import { Router, NavigationEnd } from '@angular/router';
 import { filter, Subscription } from 'rxjs';
-import { environment } from '../../environments/environment';
 import { CommonModule } from '@angular/common';
 import { Theme } from "../theme/theme";
 
@@ -10,7 +8,7 @@ import { Theme } from "../theme/theme";
 @Component({
   selector: 'app-main',
   standalone: true,
-  imports: [Button, CommonModule, Theme],
+  imports: [CommonModule, Theme],
   templateUrl: './main.html',
   styleUrl: './main.css'
 })

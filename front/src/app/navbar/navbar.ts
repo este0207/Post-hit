@@ -1,13 +1,11 @@
 import { Component, OnInit, computed, effect } from '@angular/core';
 import { RouterLink, Router } from '@angular/router';
-import { Link } from "../link/link";
-import { Searcbar } from "../searcbar/searcbar";
 import { UserService } from '../user-service';
 import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-navbar',
-  imports: [Link, Searcbar, RouterLink, CommonModule],
+  imports: [RouterLink, CommonModule],
   templateUrl: './navbar.html',
   styleUrl: './navbar.css'
 })

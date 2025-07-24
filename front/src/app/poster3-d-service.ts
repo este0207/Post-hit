@@ -18,6 +18,8 @@ export class Poster3DService {
   private imageNameSubject = new BehaviorSubject<string>('Portal In Out');
   imageName$ = this.imageNameSubject.asObservable();
   private borderMaterials: THREE.MeshBasicMaterial[] = [];
+  private outlineColorSubject = new BehaviorSubject<string>('#222222');
+  outlineColor$ = this.outlineColorSubject.asObservable();
 
   constructor(private fetchService: FetchService) { }
 
@@ -101,7 +103,6 @@ export class Poster3DService {
   }
 
   setOutlineColor(color: string) {
-    const colorHex = new THREE.Color(color);
-    this.borderMaterials.forEach(mat => mat.color.set(colorHex));
+    this.outlineColorSubject.next(color);
   }
 }

@@ -19,6 +19,7 @@
     "express-fileupload": "^1.5.1",
     "google-auth-library": "^9.0.0",
     "jsonwebtoken": "^9.0.2",
+    "morgan": "^1.10.1",
     "mysql2": "^3.14.1",
     "node-fetch": "^2.7.0",
     "nodemailer": "^7.0.3",

@@ -1,47 +1,113 @@
-.profilContainer{
-    display: flex;
-    flex-direction: column;
-    background-color: antiquewhite;
-    margin: 15px;
-    border-radius: 20px;
-    padding: 20px;
-    align-items: center;
-    gap: 12px;
-    opacity: 0;
-    transition: 0.5s;
+/* --- Profil Utilisateur Nike Style (compact) --- */
+.profilContainer {
+  display: flex;
+  flex-direction: column;
+  background: var(--color-black);
+  margin: 24px auto;
+  border-radius: 22px;
+  padding: 2em 1vw 1.5em 1vw;
+  align-items: center;
+  gap: 1.2em;
+  max-width: 420px;
+  box-shadow: 0 4px 18px rgba(17,17,17,0.13);
+  opacity: 1;
+  transition: 0.5s;
 }
 
-.profilContainer.active{
-    opacity: 1;
+h2 {
+  font-family: var(--font-title);
+  font-size: 1.3em;
+  color: var(--color-accent);
+  font-weight: 800;
+  margin-bottom: 0.4em;
 }
 
-.userInfo{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    background-color: white;
-    align-items: center;
-    border-radius: 20px;
-    padding: 20px;
-    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.172);
-    gap: 10px;
+.userInfo {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background: var(--color-white);
+  align-items: center;
+  border-radius: 16px;
+  padding: 1em 1.2em;
+  box-shadow: 0 2px 8px rgba(17,17,17,0.08);
+  gap: 7px;
+  width: 100%;
+  max-width: 320px;
+}
+.userInfo p {
+  color: var(--color-black);
+  font-size: 1em;
+  margin: 0.1em 0;
 }
 
-form{
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    background-color: white;
-    box-shadow: 10px 10px 10px 10px rgba(0, 0, 0, 0.172);
-    padding: 20px;
-    border-radius: 20px;
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+  background: var(--color-white);
+  box-shadow: 0 2px 8px rgba(17,17,17,0.08);
+  padding: 1.2em 1.2em 1em 1.2em;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 320px;
 }
-
-input{
-    border-radius: 20px;
-    border: none;
-    min-height: 25px;
-    max-width: 200px;
-    padding-left: 10px;
-    border: 1px solid rgb(246, 211, 166);
+label {
+  font-weight: 700;
+  color: var(--color-black);
+  font-family: var(--font-title);
+  margin-bottom: 0.1em;
+  font-size: 1em;
+}
+input {
+  border-radius: 10px;
+  border: 1.2px solid var(--color-gray-light);
+  min-height: 28px;
+  max-width: 100%;
+  padding: 0.5em 0.7em;
+  font-size: 0.98em;
+  background: var(--color-gray-light);
+  font-family: var(--font-body);
+  transition: border 0.15s, background 0.15s;
+}
+input:focus {
+  border: 1.2px solid var(--color-accent);
+  background: var(--color-white);
+}
+button[type="submit"] {
+  border-radius: 22px;
+  height: 36px;
+  box-shadow: 0 2px 8px rgba(255,60,0,0.08);
+  border: none;
+  background: var(--color-accent);
+  color: var(--color-white);
+  font-family: var(--font-title);
+  font-weight: 700;
+  font-size: 1em;
+  letter-spacing: 0.02em;
+  transition: background 0.15s, color 0.15s, transform 0.12s;
+  cursor: pointer;
+  margin-top: 0.7em;
+  padding: 0 1.2em;
+}
+button[type="submit"]:hover {
+  background: var(--color-black);
+  color: var(--color-accent);
+  transform: translateY(-1px) scale(1.03);
+}
+@media (max-width: 700px) {
+  .profilContainer {
+    padding: 1em 1vw 0.7em 1vw;
+    border-radius: 0;
+    margin: 6px auto;
+    max-width: 99vw;
+  }
+  .userInfo, form {
+    padding: 0.7em 0.3em;
+    border-radius: 10px;
+    max-width: 98vw;
+  }
+  h2 {
+    font-size: 1em;
+  }
 }

@@ -15,6 +15,8 @@ export class Shop implements OnInit {
   private fetchService = inject(FetchService);
   private displayProductService = inject(DisplayProductService);
 
+  private products: any[] = [];
+
   ngOnInit(): void {
     setTimeout(() => {
       const fullShop = document.querySelector('.fullShop') as HTMLElement;
@@ -25,6 +27,47 @@ export class Shop implements OnInit {
 
     this.loadProducts();
     this.setupProductSelection();
+    this.setupSortButtons();
+  }
+
+  private setupSortButtons() {
+    const sortPriceAsc = document.getElementById('sort-price-asc');
+    const sortPriceDesc = document.getElementById('sort-price-desc');
+    const sortNameAsc = document.getElementById('sort-name-asc');
+    const sortNameDesc = document.getElementById('sort-name-desc');
+
+    if (sortPriceAsc) {
+      sortPriceAsc.addEventListener('click', () => this.sortProducts('price-asc'));
+    }
+    if (sortPriceDesc) {
+      sortPriceDesc.addEventListener('click', () => this.sortProducts('price-desc'));
+    }
+    if (sortNameAsc) {
+      sortNameAsc.addEventListener('click', () => this.sortProducts('name-asc'));
+    }
+    if (sortNameDesc) {
+      sortNameDesc.addEventListener('click', () => this.sortProducts('name-desc'));
+    }
+  }
+
+  private sortProducts(type: string) {
+    if (!this.products.length) return;
+    let sorted = [...this.products];
+    switch (type) {
+      case 'price-asc':
+        sorted.sort((a, b) => (a.product_price || 0) - (b.product_price || 0));
+        break;
+      case 'price-desc':
+        sorted.sort((a, b) => (b.product_price || 0) - (a.product_price || 0));
+        break;
+      case 'name-asc':
+        sorted.sort((a, b) => (a.product_name || '').localeCompare(b.product_name || ''));
+        break;
+      case 'name-desc':
+        sorted.sort((a, b) => (b.product_name || '').localeCompare(a.product_name || ''));
+        break;
+    }
+    this.displayProducts(sorted);
   }
 
   private setupProductSelection() {
@@ -33,24 +76,37 @@ export class Shop implements OnInit {
     });
   }
 
-  private loadProducts() {
+  private async loadProducts() {
     const fullshop = document.querySelector('.fullShop') as HTMLElement;
     if (!fullshop) {
       console.error('Container fullshop non trouvé');
       return;
     }
 
-    // Utiliser le DisplayProductService pour charger et afficher les produits
-    this.displayProductService.displayProductList(
-      '/products', 
-      fullshop,
-      (productId: number) => this.loadProductDetails(productId)
-    ).then((data) => {
-        console.log('Produits chargés avec succès:', data);
-      })
-      .catch(error => {
-        console.error('Erreur lors du chargement des produits:', error);
-      });
+    try {
+      // Utiliser le DisplayProductService pour charger et afficher les produits
+      const data = await this.displayProductService.displayProductList(
+        '/products',
+        fullshop,
+        (productId: number) => this.loadProductDetails(productId)
+      );
+      this.products = data;
+    } catch (error) {
+      console.error('Erreur lors du chargement des produits:', error);
+    }
+  }
+
+  private displayProducts(products: any[]) {
+    const fullshop = document.querySelector('.fullShop') as HTMLElement;
+    if (!fullshop) return;
+    fullshop.innerHTML = '';
+    products.forEach((element: any) => {
+      this.displayProductService.createProductElement(
+        element,
+        fullshop,
+        (productId: number) => this.loadProductDetails(productId)
+      );
+    });
   }
 
   private loadProductDetails(productId: number) {

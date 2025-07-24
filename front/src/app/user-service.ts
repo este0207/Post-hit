@@ -38,7 +38,7 @@ export class UserService {
     const token = localStorage.getItem('jwt_token');
     if (token) {
       // Vérifier la validité du token avec le serveur
-      this.http.post<{message: string, user: User, token: string}>(`${this.apiUrl}/login`, { token })
+      this.http.post<{message: string, user: User, token: string}>(`${this.apiUrl}/users/login`, { token })
         .pipe(
           tap(response => {
             if (response.user) {
@@ -75,7 +75,7 @@ export class UserService {
       token: string;
     }
 
-    return this.http.post<LoginResponse>(`${this.apiUrl}/login`, { email, password })
+    return this.http.post<LoginResponse>(`${this.apiUrl}/users/login`, { email, password })
       .pipe(
         tap(response => {
           console.log('Login response:', response);
@@ -90,7 +90,7 @@ export class UserService {
   }
 
   register(username: string, email: string, password: string): Observable<User> {
-    return this.http.post<User>(`${this.apiUrl}/signup`, { username, email, password })
+    return this.http.post<User>(`${this.apiUrl}/users/signup`, { username, email, password })
       .pipe(
         tap(user => this.userSignal.set(user))
       );
@@ -125,7 +125,6 @@ export class UserService {
     return this.http.delete<void>(`${this.apiUrl}/users/${id}`)
       .pipe(
         tap(() => {
-          // Mettre à jour la liste des utilisateurs
           const currentUsers = this.usersSignal();
           this.usersSignal.set(currentUsers.filter(user => user.id !== id));
         })
@@ -157,5 +156,9 @@ export class UserService {
 
   sendMail(email: string): Observable<any> {
     return this.http.post(`${this.apiUrl}/send-mail`, { email });
+  }
+
+  sendMailContact(email: string, message: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}/send-mail-contact`, { email, message });
   }
 }

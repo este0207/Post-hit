@@ -1,22 +1,25 @@
-<div class="nav">
-  <div class="logo">
-    <a routerLink="/"><img src="/post'hit_logo.png" alt="post'hit_logo"></a>
+<nav class="navbar">
+  <div class="navbar__logo-text">
+    <a routerLink="/">Posthit</a>
   </div>
-  <div class="links">
-    <ul>
-      <app-searcbar></app-searcbar>
-       <app-link link_icon="fa-solid fa-magnifying-glass" (click)="useSearch()"></app-link>
-       <div class="icons">
-        <app-link link_text="Shop" link_url="/FullShop"></app-link>
-        <app-link link_text="Login" (click)="userForm()" *ngIf="!isLoggedIn()" ></app-link>
-        <p routerLink="/user-profil">{{username()}}</p>
-        <app-link link_icon="fa-solid fa-cart-shopping" link_url="/cart"></app-link>
-        <app-link link_icon="fa-solid fa-heart"></app-link>
-        <button *ngIf="isLoggedIn()" (click)="logout()" class="logout-btn">Se déconnecter</button>
-      </div>
-      <div class="mobilIcons">
-        <app-link link_icon="fa-solid fa-bars" (click)="ShowMenu()"></app-link>
-      </div>
-    </ul>
+  <ul class="navbar__links">
+    <li><a routerLink="/">Accueil</a></li>
+    <li><a routerLink="/FullShop">Galerie</a></li>
+    <li><a routerLink="/about">À propos</a></li>
+    <li><a routerLink="/contact">Contact</a></li>
+  </ul>
+  <div class="navbar__icons">
+    <a routerLink="/cart" class="icon-cart" title="Panier">
+      <i class="fa-solid fa-cart-shopping"></i>
+    </a>
+    <a *ngIf="isLoggedIn()" routerLink="/user-profil" class="icon-user" title="Profil">
+      <i class="fa-regular fa-user"></i>
+      <span class="username">{{ username() }}</span>
+    </a>
+    <button *ngIf="isLoggedIn()" (click)="logout()" class="logout-btn">Se déconnecter</button>
+
+    <!-- Si non connecté : bouton Login -->
+    <button *ngIf="!isLoggedIn()" (click)="userForm()" class="login-btn">Login</button>
+
   </div>
-</div>
+</nav>
