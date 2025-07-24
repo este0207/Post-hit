@@ -1,3 +1,4 @@
+//import
 import express from 'express';
 import cors from 'cors';
 import fileUpload from 'express-fileupload';
@@ -7,10 +8,7 @@ import userRoutes from '.routes/user.routes.js'
 import authRoutes from '.routes/auth.routes.js'
 import bestsellingRoutes from './routes/bestselling.routes.js';
 import cartRoutes from './routes/cart.routes.js';
-
-
-
-
+import authRoutes from './routes/auth.routes.js';
 
 dotenvConfig();
 
@@ -26,17 +24,11 @@ app.use(fileUpload());
 app.use(express.static('public'));
 
 // Routes
-import authRoutes from './routes/auth.routes.js';
-import userRoutes from './routes/user.routes.js';
-
-
 app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/stripe', stripeRoutes);
 app.use('/bestselling', bestsellingRoutes);
 app.use('/cart', cartRoutes);
-
-
-
+server.use('/auth', authRoutes);
 
 export default app;

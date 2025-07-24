@@ -106,93 +106,15 @@ async function main(){
     // --------  Cart commande  --------- //
 
     // GET - Récupérer le panier d'un utilisateur
-    server.get("/cart/:userId", async(req,res)=>{
-        try {
-            const { userId } = req.params;
-            const result = await cartModel.getCart(userId);
-            if (!result) {
-                return res.status(404).json("Panier non trouvé");
-            }
-            console.log(`Panier récupéré pour l'utilisateur ${userId}:`, result);
-            res.json(result);
-        } catch (err) {
-            console.error(err);
-            res.status(500).json("Erreur interne lors de la récupération du panier");
-        }
-    });
-
+    
     // POST - Ajouter un produit au panier
-    server.post("/cart/add", async(req,res)=>{
-        try {
-            const { userId, productId, quantity = 1 } = req.body;
-            
-            if (!userId || !productId) {
-                return res.status(400).json("userId et productId sont requis");
-            }
-
-            const result = await cartModel.addToCart(userId, productId, quantity);
-            console.log(`Produit ${productId} ajouté au panier de l'utilisateur ${userId}`);
-            res.status(201).json(result);
-        } catch (err) {
-            console.error(err);
-            res.status(500).json("Erreur interne lors de l'ajout au panier");
-        }
-    });
-
+   
     // DELETE - Supprimer un produit du panier
-    server.delete("/cart/remove", async(req,res)=>{
-        try {
-            const { userId, productId } = req.body;
-            
-            if (!userId || !productId) {
-                return res.status(400).json("userId et productId sont requis");
-            }
-
-            const result = await cartModel.removeFromCart(userId, productId);
-            console.log(`Produit ${productId} supprimé du panier de l'utilisateur ${userId}`);
-            res.json(result);
-        } catch (err) {
-            console.error(err);
-            res.status(500).json("Erreur interne lors de la suppression du panier");
-        }
-    });
-
+   
     // PUT - Mettre à jour la quantité d'un produit
-    server.put("/cart/update-quantity", async(req,res)=>{
-        try {
-            const { userId, productId, quantity } = req.body;
-            
-            if (!userId || !productId || quantity === undefined) {
-                return res.status(400).json("userId, productId et quantity sont requis");
-            }
-
-            const result = await cartModel.updateQuantity(userId, productId, quantity);
-            console.log(`Quantité du produit ${productId} mise à jour pour l'utilisateur ${userId}: ${quantity}`);
-            res.json(result);
-        } catch (err) {
-            console.error(err);
-            res.status(500).json("Erreur interne lors de la mise à jour de la quantité");
-        }
-    });
-
+   
     // DELETE - Vider le panier d'un utilisateur
-    server.delete("/cart/clear/:userId", async(req,res)=>{
-        try {
-            const { userId } = req.params;
-            
-            if (!userId) {
-                return res.status(400).json("userId est requis");
-            }
-
-            const result = await cartModel.clearCart(userId);
-            console.log(`Panier vidé pour l'utilisateur ${userId}`);
-            res.json(result);
-        } catch (err) {
-            console.error(err);
-            res.status(500).json("Erreur interne lors du vidage du panier");
-        }
-    });
-
+   
     // --------  Upload de fichiers  --------- //
     
     server.post("/upload", async (req,res)=>{
@@ -215,36 +137,7 @@ async function main(){
     });
 
     // --------  Authentification Google --------- //
-    server.post("/google-login", async (req, res) => {
-        const { credential } = req.body;
-        if (!credential) {
-            return res.status(400).json({ message: "Token Google manquant" });
-        }
-        try {
-            const ticket = await googleClient.verifyIdToken({
-                idToken: credential,
-                audience: GOOGLE_CLIENT_ID
-            });
-            const payload = ticket.getPayload();
-            // payload contient : email, name, picture, sub (id Google)
-            const email = payload.email;
-            const username = payload.name;
-            // Vérifier si l'utilisateur existe déjà
-            let user = await userModel.getUserByEmail(email);
-            if (!user) {
-                // Créer un nouvel utilisateur (mot de passe vide ou spécial)
-                await userModel.addUser(username, email, "GOOGLE_ACCOUNT");
-                user = await userModel.getUserByEmail(email);
-            }
-            // Générer un JWT local pour la session
-            const token = jwt.sign({ data: user.id }, process.env.JWT_SECRET_KEY, { expiresIn: '7d' });
-            res.json({ message: "Connexion Google réussie", user, token });
-        } catch (err) {
-            console.error(err);
-            res.status(401).json({ message: "Token Google invalide" });
-        }
-    });
-
+    
     // --------- envoie de mail pour confiramtion de rejister ---------- //
 
     server.post("/send-mail", async (req,res) => {
