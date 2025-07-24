@@ -58,52 +58,12 @@ async function main(){
     // route stripe //
 
     // Route spécifique pour les images
-    server.get("/images/:filename", (req, res) => {
-        const filename = req.params.filename;
-        res.setHeader('Access-Control-Allow-Origin', '*');
-        res.setHeader('Access-Control-Allow-Methods', 'GET');
-        res.setHeader('Access-Control-Allow-Headers', 'Content-Type');
-        res.setHeader('Cache-Control', 'public, max-age=31536000');
-        res.sendFile(`./public/${filename}`, { root: '.' });
-    });
 
     // --------  Routes bestselling   --------- //
 
 
     // --------  Routes Categorie   --------- //
 
-    server.get("/categories", async(req,res)=>{
-        try{
-            const categorie = await categorieModel.getAllCategorie();
-            if (!categorie || categorie.length === 0) {
-                return res.status(404).json("Aucune categorie trouvé");
-            }
-            res.json(categorie);
-            console.log(`GET de ${categorie.length} categorie de Type :`,categorie);
-        }
-        catch(err){
-            console.error(err);
-            res.status(500).json("Erreur interne lors de la récupération des produits");
-        }
-    });
-
-    server.post("/add-categorie", async(req,res)=>{
-        try {
-            const { categorie_name } = req.body;
-            if (!categorie_name) {
-                return res.status(400).json("Données de la categorie incomplètes");
-            }
-            const categorie = await categorieModel.addCategorie(categorie_name);
-            if (!categorie) {
-                return res.status(409).json("Erreur lors de l'ajout de la categorie");
-            }
-            res.status(201).json(categorie);
-            console.log(`Nouvelle categorie ajouté : nom= ${categorie_name}`);
-        } catch (err) {
-            console.error(err);
-            res.status(500).json("Erreur interne lors de l'ajout de la categorie");
-        }
-    });
 
     // --------  Routes Produits Supplémentaires  --------- //
 

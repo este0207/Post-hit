@@ -6,6 +6,8 @@ import stripeRoutes from './routes/stripe.routes.js';
 import userRoutes from '.routes/user.routes.js'
 import authRoutes from '.routes/auth.routes.js'
 import bestsellingRoutes from './routes/bestselling.routes.js';
+import cartRoutes from './routes/cart.routes.js';
+
 
 
 
@@ -32,6 +34,7 @@ app.use('/auth', authRoutes);
 app.use('/users', userRoutes);
 app.use('/stripe', stripeRoutes);
 app.use('/bestselling', bestsellingRoutes);
+app.use('/cart', cartRoutes);
 
 
 
