@@ -17,10 +17,10 @@ export const googleLogin = async (req, res) => {
     const email = payload.email;
     const username = payload.name;
 
-    let user = await userModel.getUserByEmail(email);
+    let user = await UserModel.getUserByEmail(email);
     if (!user) {
-      await userModel.addUser(username, email, "GOOGLE_ACCOUNT");
-      user = await userModel.getUserByEmail(email);
+      await UserModel.addUser(username, email, "GOOGLE_ACCOUNT");
+      user = await UserModel.getUserByEmail(email);
     }
 
     const token = jwt.sign({ data: user.id }, process.env.JWT_SECRET_KEY, { expiresIn: '7d' });
