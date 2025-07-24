@@ -1,21 +1,22 @@
-// Polyfill pour Headers (nécessaire pour google-auth-library avec ES modules)
+
 import { Headers } from 'node-fetch';
 global.Headers = Headers;
 
-import mysql from "mysql2/promise";
-import { User } from "./user.model.js";
+import { User } from "./models/user.model.js";
 import { ProductModel } from "./product.model.js";
-import { CategorieModel } from "./categorie.model.js";
-import { Cart } from "./cart.model.js";
+import { CategorieModel } from "./models/categorie.model.js";
+import { Cart } from "./models/cart.model.js";
 import express from "express";
 import cors from "cors";
 import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 import bcrypt from "bcrypt"
 import fileUpload from "express-fileupload";
-import { BestsellingModel } from "./bestselling.model.js";
+import { BestsellingModel } from "./models/bestselling.model.js";
 import {OAuth2Client} from 'google-auth-library';
 import Stripe from 'stripe';
+
+
 import nodemailer from 'nodemailer'
 
 dotenv.config();
@@ -37,12 +38,6 @@ const googleClient = new OAuth2Client(GOOGLE_CLIENT_ID);
 
 async function main(){
     console.log("server listen"+host+"on port:"+PORT);
-    const client = await mysql.createConnection({
-        host : host,
-        user : "root",
-        password : "root",
-        database : "posthit"
-    }).catch(console.error);
 
     const userModel = new User(client);
     const productModel = new ProductModel(client);
