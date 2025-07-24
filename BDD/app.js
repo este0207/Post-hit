@@ -57,7 +57,7 @@ app.use('/auth', authRoutes);
 
 // Page d’accueil simple (optionnel)
 app.get('/', (req, res) => {
-  res.send('🚀 API Post\'hit en ligne !');
+  res.send('API Post\'hit en ligne !');
 });
 
 // 404 - route non trouvée
