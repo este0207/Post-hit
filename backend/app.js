@@ -21,12 +21,13 @@ import bestsellingRoutes from './routes/bestselling.route.js';
 import authRoutes from './routes/auth.routes.js';
 
 // Init App
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+
 const app = express();
 dotenv.config();
 
 // Détection de __dirname
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = path.dirname(__filename);
 
 // Connexion à la BDD
 db.connect(err => {
@@ -39,8 +40,8 @@ db.connect(err => {
 
 // Middlewares globaux
 app.use(cors());
-app.use(morgan('dev'));
 app.use(express.json());
+app.use(morgan('dev'));
 app.use(express.urlencoded({ extended: true }));
 app.use('/public', express.static(path.join(__dirname, 'public'))); 
 

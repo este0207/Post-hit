@@ -1,4 +1,4 @@
-import { ProductSize } from "../models/productsize.model.js";
+import { ProductSize } from "./productsize.model.js";
 
 export class ProductModel{
     constructor(clientSQL){
