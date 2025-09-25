@@ -27,7 +27,6 @@ const __dirname = path.dirname(__filename);
 const app = express();
 dotenv.config();
 
-// Détection de __dirname
 
 // Connexion à la BDD
 db.connect(err => {

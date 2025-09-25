@@ -14,8 +14,10 @@ export const serveImage = (req, res) => {
 
   res.sendFile(filename, options, (err) => {
     if (err) {
-      console.error(err);
-      res.status(err.status || 500).send('Erreur lors de la récupération de l\'image');
+      if (!res.headersSent) {
+        res.status(err.status || 500).send('Erreur lors de la récupération de l\'image');
+      }
+      return;
     }
   });
 };

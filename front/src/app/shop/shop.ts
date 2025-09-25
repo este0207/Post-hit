@@ -112,7 +112,7 @@ export class Shop implements OnInit {
   private loadProductDetails(productId: number) {
     const apiURL = environment.apiURL;
     
-    fetch(apiURL + `/product/${productId}`)
+    fetch(apiURL + `/products/${productId}`)
       .then(res => res.json())
       .then((data) => {
         console.log('Détails du produit reçus:', data);

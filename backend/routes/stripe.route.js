@@ -7,8 +7,4 @@ const router = express.Router();
 
 router.get("/create-checkout-session", createCheckoutSession);
 
-
-
-
-
 export default router;

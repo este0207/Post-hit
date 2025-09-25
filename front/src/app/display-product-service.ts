@@ -86,6 +86,7 @@ export class DisplayProductService {
   }
 
   async displayProductDetails(product: any) {
+    console.log('Produit reçu pour affichage des détails :', product);
     const apiURL = environment.apiURL;
     
     // Vider le contenu existant
@@ -169,5 +170,12 @@ export class DisplayProductService {
         );
       }
     });
+  }
+
+  async displayProductDetailsById(productId: number) {
+    const apiURL = environment.apiURL;
+    const response = await fetch(`${apiURL}/products/${productId}`);
+    const product = await response.json();
+    this.displayProductDetails(product);
   }
 }
